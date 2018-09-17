@@ -1,18 +1,26 @@
 import sys
+import csv
 
-def importFile(filename):
+def importFile(fileName):
     #takes in file object, reads csv into 2 lists
     #returns list of authors and list of books
+    inFile = open(fileName, string)
+    return inFile
+        
+
+def readFile(fileName):
+    authorList = []
+    titleList = []
+    with open(fileName, newline = '') as bookfile:
+        reader = csv.reader(bookfile, delimiter = ',', quotechar = '"')
+        for row in reader:
+            titleList.append(row[0])
+            authorList.append(row[2])
+    return authorList, titleList
 
 
-
-
-
-
-def sort(sortDirection, list):
+def sort(sortDirection, myList):
     #sorts list based on sortDirection
-
-
 
 
 def main():
