@@ -18,13 +18,13 @@ def readFile(fileName, action):
                 titleList.append(row[0])
             #return list of books
             #add another if for sort-direction
-        return titleList
+            return titleList
         elif action == "authors":
             for row in reader:
                 authorList.append(row[2])
             #return list of authors
             #add another if for sort-direction
-        return authorList
+            return authorList
         else:
             #return error message?
             pass
@@ -33,6 +33,7 @@ def readFile(fileName, action):
 
 def sort(sortDirectionBool, myList):
     #sorts list based on sortDirectionBool
+    pass
 
 
 def main():
