@@ -17,12 +17,14 @@ class Author:
         age = deathYear - birthYear
         return age
 
+
 def importFile(fileName):
     #takes in file object, reads csv into 2 lists
     #returns list of authors and list of books
     inFile = open(fileName, string)
     print("import file")
     return inFile
+
 
 
 def readFile(fileName, action):
@@ -57,6 +59,7 @@ def sort(sortDirectionBool, myList):
     myList.sort()
     return myList
     pass
+
 
 
 def main():
