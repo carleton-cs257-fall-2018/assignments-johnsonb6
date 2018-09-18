@@ -122,6 +122,7 @@ def sort(action, myList):
         for i in authList:
             print(i.getFullName())
         #authList.sort(reverse = True)
+
         return authList
     return myList
     pass
@@ -129,7 +130,6 @@ def sort(action, myList):
 
 
 def main():
-    print("working")
     fileName = sys.argv[1]
     print(fileName)
     action = sys.argv[2]
