@@ -110,15 +110,23 @@ def switcharoo(word):
 
 
 
-def sort(action, myList):
+def sort(action, myList, direction):
     #sorts list based on sortDirectionBool
+    if direction == "reverse":
+        rev = True
+    else:
+        rev = False
+        
     if action == "books":
-        myList.sort()
-        print(myList)
-        myList.sort(reverse = True)
-        print(myList)
+        if direction == "reverse":
+            myList.sort(reverse = True)
+        else:
+            myList.sort()
+        for i in myList:
+            print(i)
+
     if action == "authors":
-        authList = sorted(myList, key=lambda Author: Author.lastName)
+        authList = sorted(myList, key=lambda Author: Author.lastName, reverse = rev)
         for i in authList:
             print(i.getFullName())
         #authList.sort(reverse = True)
@@ -134,6 +142,7 @@ def main():
     print(fileName)
     action = sys.argv[2]
     print(action)
+    sortDirection = "forward"
     if len(sys.argv) > 3:
         sortDirection = sys.argv[3]
         sortDirectionBool = False
@@ -143,7 +152,7 @@ def main():
         #sort forwards
     action = action.lower()
     actionList = readFile(fileName, action)
-    sortedList = sort(action, actionList)
+    sortedList = sort(action, actionList, sortDirection)
 
 if __name__ == '__main__':
     main()
