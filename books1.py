@@ -63,7 +63,7 @@ def sort(sortDirectionBool, myList):
 
 
 def main():
-    print("start")
+    print("working")
     fileName = sys.argv[1]
     print(fileName)
     action = sys.argv[2]
@@ -77,3 +77,5 @@ def main():
         #sort forwards
     action = action.lower()
     actionList = readFile(fileName, action)
+if __name__ == '__main__':
+    main()
