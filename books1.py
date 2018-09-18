@@ -18,6 +18,17 @@ class Author:
         age = deathYear - birthYear
         return age
 
+    def getLastName(self):
+        return self.lastName
+
+    def __str__(self):
+        fullName = self.firstName + " " + self.lastName
+        return fullName
+
+    def getFullName(self):
+        fullName = self.firstName + " " + self.lastName
+        return fullName
+
 
 def importFile(fileName):
     #takes in file object, reads csv into 2 lists
@@ -77,7 +88,7 @@ def readFile(fileName, action):
             newAuth = Author(authorFirst, authorLast, book, publishDate, birthYear, deathYear)
 
             titleList.append(book)
-            authorList.append(authorLast + ", " + authorFirst)
+            authorList.append(newAuth)
 
         if action == "books":
             #return list of books
@@ -99,12 +110,19 @@ def switcharoo(word):
 
 
 
-def sort(myList):
+def sort(action, myList):
     #sorts list based on sortDirectionBool
-    myList.sort()
-    print(myList)
-    myList.sort(reverse = True)
-    print(myList)
+    if action == "books":
+        myList.sort()
+        print(myList)
+        myList.sort(reverse = True)
+        print(myList)
+    if action == "authors":
+        authList = sorted(myList, key=lambda Author: Author.lastName)
+        for i in authList:
+            print(i.getFullName())
+        #authList.sort(reverse = True)
+        return authList
     return myList
     pass
 
@@ -125,7 +143,7 @@ def main():
         #sort forwards
     action = action.lower()
     actionList = readFile(fileName, action)
-    sortedList = sort(actionList)
+    sortedList = sort(action, actionList)
 
 if __name__ == '__main__':
     main()
