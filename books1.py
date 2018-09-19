@@ -1,3 +1,8 @@
+"""
+Created by Silas Monahan, Alexis Engel, and Brennan Johnson
+CS 257 Fall 2018
+books1.py
+"""
 import sys
 import csv
 
@@ -34,13 +39,11 @@ def importFile(fileName):
     #takes in file object, reads csv into 2 lists
     #returns list of authors and list of books
     inFile = open(fileName, string)
-    print("import file")
     return inFile
 
 
 
 def readFile(fileName, action):
-    print("read file")
     authorList = []
     titleList = []
     with open(fileName, newline = '') as bookfile:
@@ -116,7 +119,7 @@ def sort(action, myList, direction):
         rev = True
     else:
         rev = False
-        
+
     if action == "books":
         if direction == "reverse":
             myList.sort(reverse = True)
@@ -138,10 +141,9 @@ def sort(action, myList, direction):
 
 
 def main():
+    print("Usage: python3 books1.py input-file action [sort-direction]", file=sys.stderr)
     fileName = sys.argv[1]
-    print(fileName)
     action = sys.argv[2]
-    print(action)
     sortDirection = "forward"
     if len(sys.argv) > 3:
         sortDirection = sys.argv[3]
