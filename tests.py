@@ -1,6 +1,7 @@
 # tests.py
 # Written by Alexis Engel, Brennan Johnson, and Silas Monahan
-
+import booksdatasource
+import unittest
 
 class BooksDataSourceTest:
 
@@ -10,7 +11,7 @@ class BooksDataSourceTest:
 			return True
 		else:
 			return False
-	
+
 
 	# Author matches ID number
 	def test_author_ID ():
@@ -20,19 +21,47 @@ class BooksDataSourceTest:
 			return False
 
 	# Each criteria for books() works (using ID number)
-	def test_book_criteria ():
+	def test_book_authorID():
 		if books(author_id = 1) == ["All Clear", "Blackout", "To Say Nothing of the Dog"]:
 			return True
 		else:
 			print("Author ID criteria insertion for books() does not work")
 			return False
+	#search_text param works for books()
+	def test_book_search_text():
 
-		if books()
+		if books(search_text = the) == ["Love in the Time of Cholera", "Murder on the Orient Express",
+		"The Code of the Woosters", "The Satanic Verses", "The Tenant of Wildfell Hall", "To Say Nothing of the Dog",
+		"The Life and Opinions of Tristram Shandy, Gentleman"]:
+			return True
+		else:
+			print("Search_text criteria for books() does not function")
+			return False
+
 
 		# test for other criteria besides just author id
+	def test_start_year():
+		if books(start_year = 2000) == ["All Clear", "Blackout"]:
+			return True
+		else:
+			print("Start_year criteria for books() not functional")
+			return False
 
+	def test_end_year():
+		if books(end_year = 1820) == ["Emma", "Pride and Prejudice", "Sense and Sensibility"]:
+			return True
+		else:
+			print("end_year criteria for books() not functional")
+			return False
 
+	def test_sortby_year():
+		if books(author_id = 1, sort_by = "year") == ["To Say Nothing of the Dog", "All Clear", "Blackout"]:
+			return True
+		else:
+			print("books() sort_by = 'year' param not functional")
+			return False
 
+	def test_so
 	# Each criteria for authors() works (using ID number)
 
 	# Books that have two authors yield two authors (authors_for_book())
@@ -54,7 +83,7 @@ class BooksDataSourceTest:
 
 	# All author last names are one word
 	def test_one_last_name ():
-		last_name = author(18)[0].last_name 
+		last_name = author(18)[0].last_name
 		space = False
 		for i in last_name:
 			if i == " ":
