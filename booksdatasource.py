@@ -114,10 +114,68 @@ class BooksDataSource:
             for a description of how a book is represented.) '''
 
         book = self.books_list[book_id]
-        book_title = book[0]
+        
+        book_title = book[0] # I THINK THE  TITLE IS INDEX 1 ID NUMBER IS INDEX 0
+        pub_year = book[2]
         return book_title
 
     def books(self, *, author_id=None, search_text=None, start_year=None, end_year=None, sort_by='title'):
+        good_book_list = []
+
+        # AUTHOR ID
+        if author_id != None:
+            initialized = True # using this variable to see if anything has beeen added to good_books_list
+            for book in self.books_list:
+                if link_dict[book].equals(author_id):
+                    good_book_list.append(self.books_list[book])
+        else:
+            initialized = False
+
+        # SEARCH TEXT
+        if search_text != None:
+            if initialized == True:
+                for book in good_book_list:
+                    for word in book.title.split():
+                        if book.book_title[word].lower() == search_text.lower():
+                            pass
+                        else:
+                            good_book_list.remove(book)
+            else: #if it hasn't been initialized
+                initialized = True
+                for book in self.books_list:
+                    for word in book.book_title.split():
+                        if book.book_title[word].lower() == search_text.lower():
+                            self.books.list.append(book)
+
+        # START YEAR
+        if start_year != None:
+            if initialized == True:
+                for book in good_book_list:
+                    if start_year <= book.pub_year:
+                        pass
+                    else:
+                        good_book_list.remove(book)
+            else: #if it hasn't been initialized
+                initialized = True
+                for book in self.books_list:
+                    if start_year <= book.pub_year:
+                        good_book_list.append(book)
+
+
+        # END YEAR
+        if start_year != None:
+            if initialized == True:
+                for book in good_book_list:
+                    if end_year >= book.pub_year:
+                        pass
+                    else:
+                        good_book_list.remove(book)
+            else: #if it hasn't been initialized
+                initialized = True
+                for book in self.books_list:
+                    if end_year >= book.pub_year:
+                        good_book_list.append(book)
+
         ''' Returns a list of all the books in this data source matching all of
             the specified non-None criteria.
 
