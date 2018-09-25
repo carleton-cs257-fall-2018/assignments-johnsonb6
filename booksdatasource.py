@@ -52,7 +52,7 @@ class BooksDataSource:
                 books: ID,title,publication-year
                   e.g. 6,Good Omens,1990
                        41,Middlemarch,1871
-                    
+
 
                 authors: ID,last-name,first-name,birth-year,death-year
                   e.g. 5,Gaiman,Neil,1960,NULL
@@ -63,7 +63,7 @@ class BooksDataSource:
                   e.g. 41,22
                        6,5
                        6,6
-                  
+
                   [that is, book 41 was written by author 22, while book 6
                     was written by both author 5 and author 6]
 
@@ -72,13 +72,50 @@ class BooksDataSource:
 
             NOTE TO STUDENTS: I have not specified how you will store the books/authors
             data in a BooksDataSource object. That will be up to you, in Phase 3.
+
         '''
-        pass
+        self.books_filename = books_filename
+        self.authors_filename = authors_filename
+        self.books_authors_link_filename = books_authors_link_filename
+        self.books_list = read_book_file()
+        self.authors_list = read_author_file()
+        self.books_and_authors = read_books_authors_file()
+
+    def read_book_file(self):
+        book_dict = {}
+        with open(self.books_filename, newline = '') as bookfile:
+            reader = csv.reader(bookfile, delimiter = ',')
+            for row in reader:
+                book_dict[row[0]] = [row[1],row[2]]
+        return book_dict
+
+    def read_author_file(self):
+        author_dict = {}
+        with open(self.authors_filename, newline = '') as bookfile:
+            reader = csv.reader(bookfile, delimiter = ',')
+            for row in reader:
+                author_dict[row[0]] = [row[1], row[2], row[3], row[4]]
+        return author_dict
+
+    def read_books_authors_file(self):
+        link_dict = {}
+        with open(self.books_authors_link_filename, newline = '') as bookfile:
+            reader = csv.reader(bookfile, delimiter = ',')
+            for row in reader:
+                if row[1] in link_dict.keys():
+                    link_dict[row[1]].append(row[0])
+                else:
+                    link_dict[row[1]] = [row[0]]
+        return link_dict
+
 
     def book(self, book_id):
         ''' Returns the book with the specified ID. (See the BooksDataSource comment
             for a description of how a book is represented.) '''
-        return {}
+
+        book = self.books_list[book_id]
+        book_title = book[0]
+        return book_title
 
     def books(self, *, author_id=None, search_text=None, start_year=None, end_year=None, sort_by='title'):
         ''' Returns a list of all the books in this data source matching all of
@@ -97,15 +134,23 @@ class BooksDataSource:
 
                 'year' -- sorts by publication_year, breaking ties with (case-insenstive) title
                 default -- sorts by (case-insensitive) title, breaking ties with publication_year
-                
+
             See the BooksDataSource comment for a description of how a book is represented.
         '''
+        books_list = []
+
+        if author_id != None:
+            book = self.books_and_authors[author_id]
+            
+
         return []
 
     def author(self, author_id):
         ''' Returns the author with the specified ID. (See the BooksDataSource comment for a
             description of how an author is represented.) '''
-        return {}
+        unrefined_author = self.authors_list[author_id]
+        author = unrefined_author[2] + " " + unrefined_author[1]
+        return author
 
     def authors(self, *, book_id=None, search_text=None, start_year=None, end_year=None, sort_by='birth_year'):
         ''' Returns a list of all the authors in this data source matching all of the
@@ -129,7 +174,7 @@ class BooksDataSource:
                     then (case-insensitive) first_name
                 any other value - sorts by (case-insensitive) last_name, breaking ties with
                     (case-insensitive) first_name, then birth_year
-        
+
             See the BooksDataSource comment for a description of how an author is represented.
         '''
         return []
