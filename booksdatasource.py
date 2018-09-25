@@ -82,20 +82,30 @@ class BooksDataSource:
         self.books_and_authors = read_books_authors_file()
 
     def read_book_file(self):
-        book_dict = {}
+        book_dict_list = []
         with open(self.books_filename, newline = '') as bookfile:
             reader = csv.reader(bookfile, delimiter = ',')
             for row in reader:
-                book_dict[row[0]] = [row[1],row[2]]
-        return book_dict
+                book_dict = {}
+                book_dict["id"] = row[0]
+                book_dict["title"] = row[1]
+                book_dict["publication year"] = row[2]
+                book_dict_list.append(book_dict)
+        return book_dict_list
 
     def read_author_file(self):
-        author_dict = {}
+        author_dict_list = []
         with open(self.authors_filename, newline = '') as bookfile:
             reader = csv.reader(bookfile, delimiter = ',')
             for row in reader:
-                author_dict[row[0]] = [row[1], row[2], row[3], row[4]]
-        return author_dict
+                author_dict = {}
+                author_dict["id"] = row[0]
+                author_dict["last name"] = row[1]
+                author_dict["first name"] = row[2]
+                author_dict["birth year"] = row[3]
+                author_dict["death year"] = row[4]
+                author_dict_list.append(author_dict)
+        return author_dict_list
 
     def read_books_authors_file(self):
         link_dict = {}
@@ -113,23 +123,28 @@ class BooksDataSource:
         ''' Returns the book with the specified ID. (See the BooksDataSource comment
             for a description of how a book is represented.) '''
 
-        book = self.books_list[book_id]
-        
+        """book = self.books_list[book_id]
+
         book_title = book[1]
         pub_year = book[2] #not sure which index this is
         return book_title
+        """
+        book_list = self.books_list
+        for dictionary in book_list:
+            if dictionary["id"] == book_id:
+                return dictionary
 
     def books(self, *, author_id=None, search_text=None, start_year=None, end_year=None, sort_by='title'):
         good_book_list = []
         initialized = False
-        
+
         # AUTHOR ID
         if author_id != None:
             initialized = True # using this variable to see if anything has beeen added to good_books_list
             for book in self.books_list:
                 if books_list[book].equals(author_id):
                     good_book_list.append(self.books_list[book])
-        
+
 
         # SEARCH TEXT
         if search_text != None:
@@ -147,7 +162,7 @@ class BooksDataSource:
                         if word.lower() == search_text.lower():
                             self.good_books_list.append(book)
 
-        
+
         # START YEAR
         if start_year != None:
             if initialized == True:
@@ -196,7 +211,7 @@ class BooksDataSource:
 
             See the BooksDataSource comment for a description of how a book is represented.
         '''
-            
+
 
         return good_book_list
 
@@ -217,7 +232,7 @@ class BooksDataSource:
             for author in self.authors_list:
                 if self.authors_list[author].equals(book_id):
                     good_book_list.append(self.books_list[book])
-            
+
         # SEARCH TEXT
         if search_text != None:
             if initialized == True:
@@ -275,7 +290,7 @@ class BooksDataSource:
                     if end_year >= book.pub_year:
                         good_book_list.append(book)
         '''
-                                
+
         ''' Returns a list of all the authors in this data source matching all of the
             specified non-None criteria.
 
