@@ -18,7 +18,7 @@ class BookTester(unittest.TestCase):
         self.assertEqual(self.book_tester.author(1), "Connie Willis")
 
     def test_book_author_ID(self):
-        self.assertEqual(self.book_tester.books(author_id = 1),
+        self.assertEqual(self.book_tester.books(author_id = 0),
         ["All Clear", "Blackout", "To Say Nothing of the Dog"])
 
     def test_book_search_text(self):
@@ -34,7 +34,7 @@ class BookTester(unittest.TestCase):
         self.assertEqual(self.book_tester.books(end_year = 1820), ["Emma", "Pride and Prejudice", "Sense and Sensibility"])
 
     def test_sortby_year(self):
-        self.assertEqual(self.book_tester.books(author_id = 1, sort_by = "year"), ["To Say Nothing of the Dog", "All Clear", "Blackout"])
+        self.assertEqual(self.book_tester.books(author_id = 0, sort_by = "year"), ["To Say Nothing of the Dog", "All Clear", "Blackout"])
 
     def test_author_bookid(self):
         self.assertEqual(self.book_tester.authors(book_id = 3), ["Connie Willis"])
