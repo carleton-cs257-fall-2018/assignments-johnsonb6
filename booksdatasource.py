@@ -112,10 +112,12 @@ class BooksDataSource:
         with open(self.books_authors_link_filename, newline = '') as bookfile:
             reader = csv.reader(bookfile, delimiter = ',')
             for row in reader:
-                if row[1] in link_dict.keys():
+                val_list = []
+                if row[1] in link_dict.keys(): #if row [1] = authorID. is already in list, add 
                     link_dict[row[1]].append(row[0])
                 else:
-                    link_dict[row[1]] = [row[0]]
+                    val_list.append(row[0])
+                    link_dict[row[1]] = val_list
         return link_dict
 
 
@@ -141,56 +143,62 @@ class BooksDataSource:
         # AUTHOR ID
         if author_id != None:
             initialized = True # using this variable to see if anything has beeen added to good_books_list
+            for i_d in authors_list:
+                if i_d == author_id:
+                    good_book_list.append(link_dict[i_d].BOOK)
+            '''
             for book in self.books_list:
                 if books_list[book].equals(author_id):
                     good_book_list.append(self.books_list[book])
-
+            '''
 
         # SEARCH TEXT
         if search_text != None:
             if initialized == True:
                 for book in good_book_list:
+                    not_good = True
                     for word in book.title.split():
                         if word.lower() == search_text.lower():
-                            pass
-                        else:
-                            good_book_list.remove(book)
-            else: #if it hasn't been initialized
+                            not_good = False
+                            if good_books_list.contains(book) == False:
+                                good_books_list.append(book)
+                            break
+                    if not_good == True:
+                        good_book_list.remove(book)
+            '''else: #if it hasn't been initialized
                 initialized = True
                 for book in self.books_list:
                     for word in book.book_title.split():
                         if word.lower() == search_text.lower():
-                            self.good_books_list.append(book)
+                            self.good_books_list.append(book)'''
 
 
         # START YEAR
         if start_year != None:
-            if initialized == True:
-                for book in good_book_list:
+                for book in self.books_list:
                     if start_year <= book.pub_year:
-                        pass
-                    else:
-                        good_book_list.remove(book)
-            else: #if it hasn't been initialized
+                        if good_books_list.contains(book) == False:
+                            good_book_list.append(book)
+                        
+            '''else: #if it hasn't been initialized
                 initialized = True
                 for book in self.books_list:
                     if start_year <= book.pub_year:
-                        good_book_list.append(book)
+                        good_book_list.append(book)'''
 
 
         # END YEAR
         if start_year != None:
-            if initialized == True:
-                for book in good_book_list:
-                    if end_year >= book.pub_year:
-                        pass
-                    else:
-                        good_book_list.remove(book)
-            else: #if it hasn't been initialized
+            for book in self.books_list:
+                if end_year >= book.pub_year:
+                    if good_books_list.contains(book) == False:
+                        good_book_list.append(book)
+                    
+            '''else: #if it hasn't been initialized
                 initialized = True
                 for book in self.books_list:
                     if end_year >= book.pub_year:
-                        good_book_list.append(book)
+                        good_book_list.append(book)'''
 
         ''' Returns a list of all the books in this data source matching all of
             the specified non-None criteria.
@@ -228,68 +236,68 @@ class BooksDataSource:
 
         # BOOK ID
         if book_id != None:
-            initialized = True # using this variable to see if anything has beeen added to good_books_list
             for author in self.authors_list:
-                if self.authors_list[author].equals(book_id):
-                    good_book_list.append(self.books_list[book])
+                for books in author.BOOKS:
+                    if self.authors_list[author].BOOK["id"] == book_id not good_book_list.contains(author):
+                        good_book_list.append(author)
 
         # SEARCH TEXT
         if search_text != None:
-            if initialized == True:
-                for author in good_author_list:
-                    for book in author.books:
-                        good = False #used if an author has more than one book, and one of the books fits the criteria, but the other(s) does not
-                        for word in book.title.split():
-                            # PROBLEM: if author has more than one book, and the second book works with criteria
-                            # but the first one does not. How it is now, it would remove the author before it got to the book that fits the criteria
-                            if word.lower() == search_text.lower() or good ==True:
-                                pass
-                                good = True
-                            else:
-                                good_book_list.remove(book)
+            for author in self.authors_list:
+                not_good = True
+                for book in author.BOOKS:
+                    for word in book.title.split():
+                        if word.lower() == search_text.lower():
+                            not_good = False
+                            if good_authors_list.contains(author) == False:
+                                good_authors_list.append(author)                        
+                if not_good == True:
+                    good_authors_list.remove(author)
+                    
+            '''
             else: #if it hasn't been initialized
                 initialized = True
                 for author in self.authors_list:
                     for book in author.books:
                         for word in book.book_title.split():
-                            # PROBLEM: if author has more than one book, and the second book works with criteria
-                            # but the first one does not. How it is now, it would remove the author before it got to the book that fits the criteria
-                            if word.lower() == search_text.lower() or good ==True:
-                                good_book_list.append(book)
-                                good = True
-                            else:
-                                good_book_list.remove(book)
-
-        '''
+                            if word.lower() == search_text.lower():
+                                good_authors_list.append(author)
+            '''
+        
         # START YEAR
         if start_year != None:
-            if initialized == True:
-                for book in good_book_list:
+            for author in self.authors_list:
+                not_good = True
+                for book in author.BOOKS:
                     if start_year <= book.pub_year:
-                        pass
-                    else:
-                        good_book_list.remove(book)
-            else: #if it hasn't been initialized
+                        not_good = False
+                        if good_authors_list.contains(author) == False:
+                            good_authors_list.append(author)
+                if not_good == True:
+                    good_authors_list.remove(authors)
+            '''else: #if it hasn't been initialized
                 initialized = True
                 for book in self.books_list:
                     if start_year <= book.pub_year:
-                        good_book_list.append(book)
+                        good_book_list.append(book)'''
 
 
         # END YEAR
         if start_year != None:
-            if initialized == True:
-                for book in good_book_list:
+            for author in self.authors_list:
+                not_good = True
+                for book in author.BOOKS:
                     if end_year >= book.pub_year:
-                        pass
-                    else:
-                        good_book_list.remove(book)
-            else: #if it hasn't been initialized
+                        not_good = False
+                        if good_authors_list.contains(author) == False:
+                            good_authors_list.append(author)                         
+                if not_good == True:
+                    good_authors_list.remove(author)
+            '''else: #if it hasn't been initialized
                 initialized = True
                 for book in self.books_list:
                     if end_year >= book.pub_year:
-                        good_book_list.append(book)
-        '''
+                        good_book_list.append(book)'''
 
         ''' Returns a list of all the authors in this data source matching all of the
             specified non-None criteria.
