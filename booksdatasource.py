@@ -6,6 +6,7 @@
     For use in some assignments at the beginning of Carleton's
     CS 257 Software Design class, Fall 2018.
 '''
+import csv
 
 class BooksDataSource:
     '''
@@ -77,10 +78,10 @@ class BooksDataSource:
         self.books_filename = books_filename
         self.authors_filename = authors_filename
         self.books_authors_link_filename = books_authors_link_filename
-        self.books_list = read_book_file()
-        self.authors_list = read_author_file()
-        self.books_by_author = get_books_by_author()
-        self.authors_by_book = get_authors_by_book()
+        self.books_list = self.read_book_file()
+        self.authors_list = self.read_author_file()
+        self.books_by_author = self.get_books_by_author()
+        self.authors_by_book = self.get_authors_by_book()
 
     def read_book_file(self):
         book_dict_list = []
@@ -104,7 +105,7 @@ class BooksDataSource:
                 author_dict["last name"] = row[1]
                 author_dict["first name"] = row[2]
                 author_dict["birth year"] = int(row[3])
-                if row[4] == None:
+                if row[4] == None or row[4] == 'NULL':
                     author_dict["death year"] = None
                 else:
                     author_dict["death year"] = int(row[4])
@@ -116,6 +117,8 @@ class BooksDataSource:
         with open(self.books_authors_link_filename, newline = '') as bookfile:
             reader = csv.reader(bookfile, delimiter = ',')
             for row in reader:
+                row[1] = int(row[1])
+                row[0] = int(row[0])
                 val_list = []
                 if row[1] in link_dict.keys(): #if row [1] = authorID. is already in list, add
                     link_dict[row[1]].append(row[0])
@@ -124,11 +127,13 @@ class BooksDataSource:
                     link_dict[row[1]] = val_list
         return link_dict
 
-    def get_authors_by_books(self): # list of book dictionaries
+    def get_authors_by_book(self): # list of book dictionaries
         link_dict = {}
         with open(self.books_authors_link_filename, newline = '') as bookfile:
             reader = csv.reader(bookfile, delimiter = ',')
             for row in reader:
+                row[1] = int(row[1])
+                row[0] = int(row[0])
                 val_list = []
                 val_list.append(row[1])
                 link_dict[row[0]] = val_list
@@ -153,45 +158,39 @@ class BooksDataSource:
     def books(self, *, author_id=None, search_text=None, start_year=None, end_year=None, sort_by='title'):
         books_to_return = []
 
-        # AUTHOR ID
-        if author_id != None:
-            """
-            for entry in self.books_by_author:
-                if dictionary["id"] == author_id:
-                    for book_id in dictionary["id"]:
-                        for book in self.books_list:
-                            if book["id"] == book_id
-                                books_to_return.append(book["title"])
-            """
 
-            list_of_book_ids = self.books_by_author[author_id]
-            for book in self.books_list:
-                if list_of_book_ids.contains(book["id"]):
-                    books_to_return.append(book["title"])
-
-        # SEARCH TEXT
-        if search_text != None:
-            for book in self.books_list:
-                if search_text in book["title"]:
-                    if not books_to_return.contains(book["title"]):
-                        books_to_return.append(book["title"])
-
-
-        # START YEAR
-        if start_year != None:
-                for book in self.books_list:
-                    if start_year <= book["publication year"]:
-                        if good_books_list.contains(book) == False:
-                            good_book_list.append(book)
+        for book in self.books_list:
+            #search text check
+            if search_text != None:
+                if search_text.lower() not in book["title"].lower():
+                    continue
+            #author id check
+            if author_id != None:
+                to_continue = False
+                for author in self.authors_by_book[book["id"]]:
+                    if author_id == author:
+                        to_continue = True
+                        break
+                if to_continue == False:
+                    continue
+            #start year check
+            if start_year != None:
+                if start_year > book["publication year"]:
+                    continue
+            #end year check
+            if end_year != None:
+                if end_year < book["publication year"]:
+                    continue
 
 
 
-        # END YEAR
-        if start_year != None:
-            for book in self.books_list:
-                if end_year >= book["publication year"]:
-                    if good_books_list.contains(book) == False:
-                        good_books_list.append(book)
+
+            books_to_return.append(book)
+        if sort_by == "year":
+            sorted_list = sorted(books_to_return, key = lambda k: k["publication year"])
+        else:
+            sorted_list = sorted(books_to_return, key = lambda k: k["title"])
+
 
 
         ''' Returns a list of all the books in this data source matching all of
@@ -215,7 +214,7 @@ class BooksDataSource:
         '''
 
 
-        return good_book_list
+        return sorted_list
 
     def author(self, author_id):
         ''' Returns the author with the specified ID. (See the BooksDataSource comment for a
@@ -225,57 +224,37 @@ class BooksDataSource:
         return author
 
     def authors(self, *, book_id=None, search_text=None, start_year=None, end_year=None, sort_by='birth_year'):
-        good_authors_list = []
-        initialized = False
+        authors_list_to_return = []
+        for author in self.authors_list:
+            if search_text != None:
+                if search_text.lower() not in author["first name"].lower():
+                    if search_text.lower() not in author["last name"].lower():
+                        continue
 
-        # BOOK ID
-        if book_id != None:
-            for dictionary in self.authors_list:
-                if dictionary["id"] == book_id:
-                    good_authors_list.append(dictionary["first name"] + " " + dictionary["last name"])
+            if book_id != None:
+                to_continue = False
+                for book in self.books_by_author[author["id"]]:
+                    if book_id == book:
+                        to_continue = True
+                        break
+                if to_continue == False:
+                    continue
 
-        # SEARCH TEXT
-        if search_text != None:
-                not_good = True
-                for dictionary in self.books_list:
-                    for word in dictionary["title"].split(" "):
-                        if word.lower() == search_text.lower():
-                            found = False
-                            for i in range(0, self.books_and_authors.len()):
-                                for j in self.books_and_authors[i]:
-                                    if j == dictionary["id"]:
-                                        for author_dict in self.authors_list:
-                                            if author_dict["id"] == i and not good_authors_list.contains(author_dict["first name"] + " " + author_dict["last name"]):
-                                                not_good = False
-                                                good_authors_list.append(author_dict["first name"] + " " + author_dict["last name"])
-                if not_good == True:
-                    good_authors_list.remove(author)
+            if start_year != None:
+                if author["death year"] != None:
+                    if author["death year"] < start_year:
+                        continue
+            #end year check
+            if end_year != None:
+                if end_year < author["birth year"]:
+                    continue
 
-        # START YEAR
-        if start_year != None:
-            for author in self.authors_list:
-                not_good = True
-                for book in author.BOOKS:
-                    if start_year <= book.pub_year:
-                        not_good = False
-                        if good_authors_list.contains(author) == False:
-                            good_authors_list.append(author)
-                if not_good == True:
-                    good_authors_list.remove(authors)
+            authors_list_to_return.append(author)
 
-
-        # END YEAR
-        if start_year != None:
-            for author in self.authors_list:
-                not_good = True
-                for book in author.BOOKS:
-                    if end_year >= book.pub_year:
-                        not_good = False
-                        if good_authors_list.contains(author) == False:
-                            good_authors_list.append(author)
-                if not_good == True:
-                    good_authors_list.remove(author)
-
+        if sort_by == "birth_year":
+            sorted_list = sorted(authors_list_to_return, key = lambda k: k["birth year"])
+        else:
+            sorted_list = sorted(authors_list_to_return, key = lambda k: k["last name"])
         ''' Returns a list of all the authors in this data source matching all of the
             specified non-None criteria.
 
@@ -300,7 +279,7 @@ class BooksDataSource:
 
             See the BooksDataSource comment for a description of how an author is represented.
         '''
-        return []
+        return authors_list_to_return
 
 
     # Note for my students: The following two methods provide no new functionality beyond
@@ -322,5 +301,6 @@ class BooksDataSource:
         return self.books(book_id=book_id)
 
 
-    if __name__ == '__main__':
-        data_source = BooksDataSource('books.csv', 'authors.csv', 'books_authors.csv')
+if __name__ == '__main__':
+    data_source = BooksDataSource('books.csv', 'authors.csv', 'books_authors.csv')
+    print(data_source.authors(start_year = 1840, end_year = 1850))
