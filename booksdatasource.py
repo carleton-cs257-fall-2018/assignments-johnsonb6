@@ -79,7 +79,8 @@ class BooksDataSource:
         self.books_authors_link_filename = books_authors_link_filename
         self.books_list = read_book_file()
         self.authors_list = read_author_file()
-        self.books_and_authors = read_books_authors_file()
+        self.books_by_author = get_books_by_author()
+        self.authors_by_book = get_authors_by_book()
 
     def read_book_file(self):
         book_dict_list = []
@@ -87,9 +88,9 @@ class BooksDataSource:
             reader = csv.reader(bookfile, delimiter = ',')
             for row in reader:
                 book_dict = {}
-                book_dict["id"] = row[0]
+                book_dict["id"] = int(row[0])
                 book_dict["title"] = row[1]
-                book_dict["publication year"] = row[2]
+                book_dict["publication year"] = int(row[2])
                 book_dict_list.append(book_dict)
         return book_dict_list
 
@@ -99,15 +100,18 @@ class BooksDataSource:
             reader = csv.reader(bookfile, delimiter = ',')
             for row in reader:
                 author_dict = {}
-                author_dict["id"] = row[0]
+                author_dict["id"] = int(row[0])
                 author_dict["last name"] = row[1]
                 author_dict["first name"] = row[2]
-                author_dict["birth year"] = row[3]
-                author_dict["death year"] = row[4]
+                author_dict["birth year"] = int(row[3])
+                if row[4] == None:
+                    author_dict["death year"] = None
+                else:
+                    author_dict["death year"] = int(row[4])
                 author_dict_list.append(author_dict)
         return author_dict_list
 
-    def read_books_authors_file(self):
+    def get_books_by_author(self): # list of author dictionaries
         link_dict = {}
         with open(self.books_authors_link_filename, newline = '') as bookfile:
             reader = csv.reader(bookfile, delimiter = ',')
@@ -118,6 +122,16 @@ class BooksDataSource:
                 else:
                     val_list.append(row[0])
                     link_dict[row[1]] = val_list
+        return link_dict
+
+    def get_authors_by_books(self): # list of book dictionaries
+        link_dict = {}
+        with open(self.books_authors_link_filename, newline = '') as bookfile:
+            reader = csv.reader(bookfile, delimiter = ',')
+            for row in reader:
+                val_list = []
+                val_list.append(row[1])
+                link_dict[row[0]] = val_list
         return link_dict
 
 
@@ -137,28 +151,30 @@ class BooksDataSource:
                 return dictionary
 
     def books(self, *, author_id=None, search_text=None, start_year=None, end_year=None, sort_by='title'):
-        good_book_list = []
-        initialized = False
+        books_to_return = []
 
         # AUTHOR ID
         if author_id != None:
-            for i_d in self.authors_list:
-                if i_d == author_id:
-                    for book in self.books_and_authors[i_d]:
-                        good_book_list.append(book)
+            """
+            for entry in self.books_by_author:
+                if dictionary["id"] == author_id:
+                    for book_id in dictionary["id"]:
+                        for book in self.books_list:
+                            if book["id"] == book_id
+                                books_to_return.append(book["title"])
+            """
+
+            list_of_book_ids = self.books_by_author[author_id]
+            for book in self.books_list:
+                if list_of_book_ids.contains(book["id"]):
+                    books_to_return.append(book["title"])
 
         # SEARCH TEXT
         if search_text != None:
-                for book in self.books_list:
-                    not_good = True
-                    for word in book.title.split():
-                        if word.lower() == search_text.lower():
-                            not_good = False
-                            if good_books_list.contains(book) == False:
-                                good_books_list.append(book)
-                            break
-                    if not_good == True:
-                        good_book_list.remove(book)
+            for book in self.books_list:
+                if search_text in book["title"]:
+                    if not books_to_return.contains(book["title"]):
+                        books_to_return.append(book["title"])
 
 
         # START YEAR
@@ -304,3 +320,7 @@ class BooksDataSource:
         ''' Returns a list of all the authors of the book with the specified book ID.
             See the BooksDataSource comment for a description of how an author is represented. '''
         return self.books(book_id=book_id)
+
+
+    if __name__ == '__main__':
+        data_source = BooksDataSource('books.csv', 'authors.csv', 'books_authors.csv')
