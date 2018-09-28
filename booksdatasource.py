@@ -1,4 +1,5 @@
 #!/usr/bin/env python3
+#by Brennan Johnson, Silas Monahan, and Alexis Engel
 '''
     booksdatasource.py
     Jeff Ondich, 18 September 2018
@@ -252,9 +253,15 @@ class BooksDataSource:
             authors_list_to_return.append(author)
 
         if sort_by == "birth_year":
-            sorted_list = sorted(authors_list_to_return, key = lambda k: k["birth year"])
+            sorted_list = sorted(authors_list_to_return, key = lambda k: k["first name"])
+            sorted_list2 = sorted(sorted_list, key = lambda k: k["last name"])
+            sorted_list3 = sorted(sorted_list2, key = lambda k: k["birth year"])
+            sorted_list = sorted_list3
         else:
-            sorted_list = sorted(authors_list_to_return, key = lambda k: k["last name"])
+            sorted_list = sorted(authors_list_to_return, key = lambda k: k["birth year"])
+            sorted_list2 = sorted(sorted_list, key = lambda k: k["first name"])
+            sorted_list3 = sorted(sorted_list2, key = lambda k: k["last name"])
+            sorted_list = sorted_list3
         ''' Returns a list of all the authors in this data source matching all of the
             specified non-None criteria.
 
@@ -279,7 +286,7 @@ class BooksDataSource:
 
             See the BooksDataSource comment for a description of how an author is represented.
         '''
-        return authors_list_to_return
+        return sorted_list
 
 
     # Note for my students: The following two methods provide no new functionality beyond
@@ -303,4 +310,4 @@ class BooksDataSource:
 
 if __name__ == '__main__':
     data_source = BooksDataSource('books.csv', 'authors.csv', 'books_authors.csv')
-    print(data_source.authors(start_year = 1840, end_year = 1850))
+    
