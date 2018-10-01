@@ -12,7 +12,7 @@ import json
 import urllib.request
 
 
-def translate_artist_id(artist_name):
+"""def translate_artist_id(artist_name):
 	artist_id = artist_name # need to change this somehow
 	'''
 	user will have inputted an artist. This function will translate the name of the artist
@@ -21,70 +21,60 @@ def translate_artist_id(artist_name):
 
 	return artist_id
 
-
-def get_artists(artist_ids):
-	# gives you a list of artists
+	'''
 	new_artist_ids = ""
 	for i_d in artist_ids:
 		new_id = translate_artist_id(i_d)
 		new_artist_ids += "," + new_id
+	'''
+	"""
 
-
-	base_url = https://api.spotify.com/v1/artists/{new_artist_ids}
-	url = base_url.format(artists)
-
-	data_from_server = urllib.request.urlopen(url).read()
-    string_from_server = data_from_server.decode('utf-8')
-    artists = json.loads(string_from_server)
-
-    # returns an array of artist objects
-    return artists
-
-
-def get_artist_top_tracks(artist_name):
-	# returns a list of a specific atrist's top tracks
-	artist_id = translate_artist_id(artist_name)
-	base_url = https://api.spotify.com/v1/artists/{artist_id}/top-tracks
-	url = base_url.format(tracks)
+def get_top_movies():
+	# gives you a list of top movies
+	base_url = 'https://api.themoviedb.org/3/movie/popular?api_key=89036379e923b4f7b34eaa4b513982e5'
+	url = base_url.format(movies)
 
 	data_from_server = urllib.request.urlopen(url).read()
-    string_from_server = data_from_server.decode('utf-8')
-    top_tracks = json.loads(string_from_server)
+	string_from_server = data_from_server.decode('utf-8')
+	top_movies = json.loads(string_from_server)
+
+	return top_movies
 
 
-    # returns a list of up to 10 track objects
-    return top_tracks
+def movies_in_theater():
+	# returns a list of movies in theaters
+	base_url = 'https://api.themoviedb.org/discover/movie?primary_release_date.gte=2014-09-15&primary_release_date.lte=2014-10-22'
+	#url = base_url.format(movies)
+
+	data_from_server = urllib.request.urlopen(base_url).read()
+	string_from_server = data_from_server.decode('utf-8')
+	theater_movies = json.loads(string_from_server)
+
+	return theater_movies
 
 
+def get_budget_for_movie(movie_id):
+	# returns a list of movies in theaters
 
-def get_artist(artist_id):
-	base_url = https://api.spotify.com/v1/artists/{artist_id}
-	url = base_url.format(artist)
+	base_url = 'https://api.themoviedb.org/3/movie/24?api_key=89036379e923b4f7b34eaa4b513982e5&language=en-US'
+	#url = base_url.format()
 
-	data_from_server = urllib.request.urlopen(url).read()
-    string_from_server = data_from_server.decode('utf-8')
-    artist = json.loads(string_from_server)
+	data_from_server = urllib.request.urlopen(base_url).read()
+	string_from_server = data_from_server.decode('utf-8')
+	movie_name = json.loads(string_from_server)["title"]
+	movie_budget = json.loads(string_from_server)["budget"]
 
-    # returns an artist object
-    return artist
+	return movie_name, movie_budget
+
 
 
 if __name__ == '__main__':
-	parser = argparse.ArgumentParser(description='Get artist info from the Spotify API')
 
-	parser.add_argument('artist name',
-                        metavar='artist name',
-                        help='the artists name that you want to get information on',
-                        #choices=['root', 'conjugate']
-                        )
+	api_key = '89036379e923b4f7b34eaa4b513982e5'
+	#parser = argparse.ArgumentParser(description='Get artist info from the Spotify API')
+	i = int(sys.argv[1])
+	print(i)
+	movie_id = i
+	print(get_budget_for_movie(movie_id))
 
-	parser.add_argument('top tracks',
-                        metavar='top tracks',
-                        help='if you want to find the atrists top tracks',
-                        choices=['top tracks'])
-	
-	'''
-	artist_name = args[0]
-	if args[1] != None:
-		get_artist_top_tracks(args[0])
-	'''
+	print(movies_in_theater())
