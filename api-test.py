@@ -10,6 +10,7 @@ import sys
 import argparse
 import json
 import urllib.request
+import random
 
 
 def get_top_movies():
@@ -21,7 +22,7 @@ def get_top_movies():
 	data_from_server = urllib.request.urlopen(base_url).read()
 	string_from_server = data_from_server.decode('utf-8')
 	top_movies = json.loads(string_from_server)
-	
+
 	movie_list = top_movies["results"]
 	for movie in movie_list:
 		movie_title_list.append(movie["title"])
@@ -65,22 +66,22 @@ def main(args):
         print(movies_in_theater())
     elif args.action == 'get_top_movies':
         print(get_top_movies())
-    elif args.action == 'get_budget_for_movie':
-    	i_d = int(args.movie_id_number)
+    elif args.action == 'get_random_movie_budget':
+    	i_d = int(random.randint(1, 5000000))
     	print(get_budget_for_movie(i_d))
 
 
-    	
+
 
 
 if __name__ == '__main__':
 
     api_key = '89036379e923b4f7b34eaa4b513982e5'
-    
+
     parser = argparse.ArgumentParser(description='Get movie info from the IMDB API')
-    parser.add_argument('action', metavar = 'action', help = "usage: 'movies_in_theater', 'get_top_movies'", choices = ["movies_in_theater", "get_top_movies", "get_budget_for_movie"])
+    parser.add_argument('action', metavar = 'action', help = "usage: 'movies_in_theater', 'get_top_movies'", choices = ["movies_in_theater", "get_top_movies", "get_random_movie_budget"])
     #if args.action == 'get budget':
-    parser.add_argument('-movie_id_number', type = int, metavar = 'movie_id_number', help = "usage: enter an integer movie id number", choices = range(1,500000000))#, choices = [None, ""])
+    #parser.add_argument('-movie_id_number', type = int, metavar = 'movie_id_number', help = "usage: enter an integer movie id number", choices = range(1,500000000))#, choices = [None, ""])
     args = parser.parse_args()
     main(args)
     """
@@ -91,5 +92,3 @@ if __name__ == '__main__':
     #print(movies_in_theater())
     print(get_top_movies())
 	"""
-
-
