@@ -15,31 +15,41 @@ import urllib.request
 def get_top_movies():
 	# gives you a list of top movies
 	base_url = 'https://api.themoviedb.org/3/movie/popular?api_key=89036379e923b4f7b34eaa4b513982e5'
-	url = base_url.format(movies)
+	#url = base_url.format(movies)
+	movie_title_list = []
 
-	data_from_server = urllib.request.urlopen(url).read()
+	data_from_server = urllib.request.urlopen(base_url).read()
 	string_from_server = data_from_server.decode('utf-8')
 	top_movies = json.loads(string_from_server)
+	
+	movie_list = top_movies["results"]
+	for movie in movie_list:
+		movie_title_list.append(movie["title"])
 
-	return top_movies
+	return movie_title_list
 
 
 def movies_in_theater():
 	# returns a list of movies in theaters
-	base_url = 'https://api.themoviedb.org/discover/movie?primary_release_date.gte=2014-09-15&primary_release_date.lte=2014-10-22'
+	base_url = 'https://api.themoviedb.org/3/movie/now_playing?api_key=89036379e923b4f7b34eaa4b513982e5&language=en-US'
 	#url = base_url.format(movies)
+	movie_title_list = []
 
 	data_from_server = urllib.request.urlopen(base_url).read()
 	string_from_server = data_from_server.decode('utf-8')
-	theater_movies = json.loads(string_from_server)
+	movies_in_theaters = json.loads(string_from_server)
 
-	return theater_movies
+	movie_list = movies_in_theaters["results"]
+	for movie in movie_list:
+		movie_title_list.append(movie["original_title"])
+
+	return movie_title_list
 
 
 def get_budget_for_movie(movie_id):
 
 
-	base_url = 'https://api.themoviedb.org/3/movie/24?api_key=89036379e923b4f7b34eaa4b513982e5&language=en-US'
+	base_url = 'https://api.themoviedb.org/3/movie/'+str(movie_id)+'?api_key=89036379e923b4f7b34eaa4b513982e5&language=en-US'
 	#url = base_url.format()
 
 	data_from_server = urllib.request.urlopen(base_url).read()
@@ -49,21 +59,28 @@ def get_budget_for_movie(movie_id):
 
 	return movie_name, movie_budget
 
-"""
+
 def main(args):
     if args.action == 'movies_in_theater':
         print(movies_in_theater())
-    elif args.action == 'get top movies':
+    elif args.action == 'get_top_movies':
         print(get_top_movies())
-"""
+    elif args.action == 'get_budget_for_movie':
+    	i_d = int(args.movie_id_number)
+    	print(get_budget_for_movie(i_d))
+
+
+    	
 
 
 if __name__ == '__main__':
 
     api_key = '89036379e923b4f7b34eaa4b513982e5'
-    """
+    
     parser = argparse.ArgumentParser(description='Get movie info from the IMDB API')
-    parser.add_argument('action', metavar = 'action', help = "usage: 'movies in theater' or 'get top movies'", choices = ["movies_in_theater", "get top movies"])
+    parser.add_argument('action', metavar = 'action', help = "usage: 'movies_in_theater', 'get_top_movies'", choices = ["movies_in_theater", "get_top_movies", "get_budget_for_movie"])
+    #if args.action == 'get budget':
+    parser.add_argument('-movie_id_number', type = int, metavar = 'movie_id_number', help = "usage: enter an integer movie id number", choices = range(1,500000000))#, choices = [None, ""])
     args = parser.parse_args()
     main(args)
     """
@@ -72,3 +89,7 @@ if __name__ == '__main__':
     movie_id = i
     print(get_budget_for_movie(movie_id))
     #print(movies_in_theater())
+    print(get_top_movies())
+	"""
+
+
