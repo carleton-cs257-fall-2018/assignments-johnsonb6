@@ -1,0 +1,20 @@
+Brennan Johnson & Silas Monahan
+Dataset Description:
+	-consists of four .csv files found on Kaggle:
+		-https://www.kaggle.com/mrmarjo/resort-daily-snowfall-20092017
+		-Jackson Hole- Wyoming.csv
+		-Snowbird- Utah.csv
+		-Telluride- Colorado.csv
+		-Whistler Blackcomb- BC Canada.csv
+	-each .csv file contains data regarding snowfall in cm per day, seasonal snowfall to date, and base depth from 2009-2017
+User Stories:
+	-Person wants to find the day with the most snow in a given year
+	-Person wants to use data to figure out historically best time to visit given resort
+	-Person wants to find a period in which there has historically been a lot of snow on the ground but minimal falling snow
+	-Person wants to find average snowfall for a given day
+		-we should find a way for our program to automatically know date for "today"
+	-Person wants to find average snowfall for a given period of time (eg. Jan 1 - Jan 4)
+	-Person wants to track how the snowfall changes from year to year
+		-eg. either how much snowfall differs year to year, or how the highest period of snowfall fluctuates year to year
+	-Person wants to get 5-day forecast (simply based on historic averages. We know this won't be very accurate)
+		-can give 5-day forecast from "today" or from a given date 
