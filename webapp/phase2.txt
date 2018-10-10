@@ -13,7 +13,7 @@ User Stories:
 	-Person wants to find a period in which there has historically been a lot of snow on the ground but minimal falling snow
 	-Person wants to find average snowfall for a given day
 		-we should find a way for our program to automatically know date for "today"
-	-Person wants to find average snowfall for a given period of time (eg. Jan 1 - Jan 4)
+	-xPerson wants to find average snowfall for a given period of time (eg. Jan 1 - Jan 4)
 	-Person wants to track how the snowfall changes from year to year
 		-eg. either how much snowfall differs year to year, or how the highest period of snowfall fluctuates year to year
 	-Person wants to get 5-day forecast (simply based on historic averages. We know this won't be very accurate)
