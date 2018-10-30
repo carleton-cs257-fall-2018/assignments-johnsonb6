@@ -16,28 +16,19 @@ function getBaseURL() {
 }
 
 function homePageBaseDepthAverage(resort_name) {
-    var url = getBaseURL();
-    // + '/' + resort_name + '/base_depth_average/date/20170101';
+    var url = getBaseURL() + '/' + resort_name + '/base_depth_average/date/20170101';
 
     var documentId = resort_name + '_average_base_depth';
-
-    /*
-    var element = document.getElementById(documentId);
-    if (element) {
-        element.innerHTML = "base_depth";
-    }
-    */
-
 
     fetch(url, {method: 'get'})
 
     .then((response) => response.json())
-    .then(function() {
+    .then(function(response) {
         var element = document.getElementById(documentId);
         if (element){
-            element.innerHTML = "base_depth";
+            element.innerHTML = response;
         }
-    });
+    })
     .catch(function(error) {
         console.log(error);
     });
