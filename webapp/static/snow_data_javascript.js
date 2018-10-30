@@ -2,7 +2,11 @@ initialize();
 
 function initialize() {
     homePageBaseDepthAverage("jackson_hole");
-    homePageSnowfallAverage("jackson_hole");    
+    homePageSnowfallAverage("jackson_hole");
+    var element = document.getElementById("3_day_button");
+    if (element) {
+        element.onclick = onForecastButtonClicked;
+    }    
 }
 
 function getBaseURL() {
@@ -49,25 +53,21 @@ function homePageSnowfallAverage(resort_name) {
 }
 
 function onForecastButtonClicked() {
-    //var url = getBaseURL();
-    alert("clicked");
-    var place_to_put_snowfall = document.getElementById("forecast_return");
-    place_to_put_snowfall.innerHTML = "snowfall_list";
-    if (place_to_put_snowfall) {
-        place_to_put_snowfall.innerHTML = "snowfall_list";
-    }
-    /*
+    var url = getBaseURL() + '/jackson_hole/snowfall_for_period/start_date/20170101/end_date/20170104';
+    
+    
+    
     fetch(url, {method: 'get'})
     .then((response) => response.json())
-    .then(function(snowfall_list) {
-        var place_to_put_snowfall = document.getElementById("forecast_return");
+    .then(function(response) {
+        var place_to_put_snowfall = document.getElementById('forecast_return');
         if (place_to_put_snowfall){
-            place_to_put_snowfall.innerHTML = snowfall_list;
+            place_to_put_snowfall.innerHTML = response;
         }
     })
     .catch(function(error) {
         console.log(error);
     });
-    */
+    
 
 }

@@ -67,7 +67,16 @@ h5 {
     color: #4682B4;
     display: block;
 }
-
+.jackson_hole_box p {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-size: 20px;
+    color: #4682B4;
+    display: block;
+}
+span {
+    font-size: 20px;
+}
 .telluride_box {
     width: 300px;
     height: 250px;
@@ -106,8 +115,8 @@ h5 {
 }
 
 .snowfall_rectangle {
-    position: fixed;
-    left: 436px;
+    position: absolute;
+    left: 300px;
     top: 100px;
     background-color: #87CEEB;
     width: 700px;
@@ -122,8 +131,8 @@ h5 {
 }
 
 .forecast_rectangle {
-    position: fixed;
-    left: 436px;
+    position: absolute;
+    left: 300px;
     top: 400px;
     background-color: #87CEEB;
     width: 700px;
@@ -137,13 +146,17 @@ h5 {
     font-family: "Lucida Sans Unicode", Helvetica, "Arial Unicode MS", Arial serif;
 }
 
-#jackson_hole_average_base_depth {
-    font-size: 12px;
+.highest_snowfall_in_year_rectangle {
+    background-color: #87CEEB;
+    position: absolute;
+    left: 300px;
+    top: 700px;
+    width: 700px;
+    height: 160px;
+    padding: 20px;
+    margin: 25px;
 }
 
-#forecast_return {
-    font-size: 14px;
-}
 
 /*
 @media screen and (max-height: 450px) {
