@@ -39,14 +39,9 @@ def get_select_query_results(connection, query, parameters=None):
         cursor.execute(query)
     return cursor
 
-@app.after_request
-def set_headers(response):
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    return response
-
 @app.route("/")
 def default():
-    return '"wsup"'
+    return "wsup"
 
 
 @app.route("/<resort_name>/base_depth/date/<date>")
@@ -115,6 +110,24 @@ def snowfall_for_date(resort_name, date):
             print(e, file=sys.stderr)
 
         connection.close()
+    return json.dumps(snowfall_to_return)
+@app.route('/<resort_name>/snowfall_average/date/<date>')
+def snowfall_average_for_date(resort_name, date):
+    """
+    returns int that is avg snowfall on this date over all years
+    """
+    resort_table = resort_table_dict[resort_name]
+
+    date_month = int(date[4:6])
+    date_day = int(date[6:8])
+    query = "SELECT snowfall FROM %s WHERE CAST(EXTRACT(MONTH FROM status_date) AS INTEGER) = %d AND CAST(EXTRACT(DAY FROM status_date) AS INTEGER) = %d" %(resort_table, date_month, date_day)
+    connection = get_connection()
+    total = 0
+    counter = 0
+    for row in get_select_query_results(connection, query):
+        counter += 1
+        total += int(row[0])
+    snowfall_to_return = int(total/counter)
     return json.dumps(snowfall_to_return)
 
 @app.route('/<resort_name>/snowfall_date/year/<year>')
