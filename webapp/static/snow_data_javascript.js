@@ -32,12 +32,12 @@ function homePageBaseDepthAverage(resort_name) {
     fetch(url, {method: 'get'})
 
     .then((response) => response.json())
-    .then(function() {
+    .then(function(response) {
         var element = document.getElementById(documentId);
         if (element){
-            element.innerHTML = "base_depth";
+            element.innerHTML = response;
         }
-    });
+    })
     .catch(function(error) {
         console.log(error);
     });

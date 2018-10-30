@@ -39,9 +39,14 @@ def get_select_query_results(connection, query, parameters=None):
         cursor.execute(query)
     return cursor
 
+@app.after_request
+def set_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
+
 @app.route("/")
 def default():
-    return "wsup"
+    return '"wsup"'
 
 
 @app.route("/<resort_name>/base_depth/date/<date>")
