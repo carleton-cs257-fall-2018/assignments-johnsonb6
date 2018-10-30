@@ -38,6 +38,10 @@ def get_select_query_results(connection, query, parameters=None):
     else:
         cursor.execute(query)
     return cursor
+@app.after_request
+def set_headers(response):
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
 
 @app.route("/")
 def default():

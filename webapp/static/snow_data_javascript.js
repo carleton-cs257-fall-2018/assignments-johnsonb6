@@ -1,13 +1,8 @@
 initialize();
 
 function initialize() {
-    homePageBaseDepthAverage("jackson_hole")
-    /*
-    var element = document.getElementById("jackson_hole_average_base_depth");
-    if (element) {
-        element.innerHTML = "base_depth";
-    }
-    */
+    homePageBaseDepthAverage("jackson_hole");
+    homePageSnowfallAverage("jackson_hole");    
 }
 
 function getBaseURL() {
@@ -34,6 +29,23 @@ function homePageBaseDepthAverage(resort_name) {
     });
 
 
+}
+function homePageSnowfallAverage(resort_name) {
+   var url = getBaseURL() + '/' + resort_name + '/snowfall_average/date/20170101';
+   
+   var documentId = resort_name + '_average_snowfall';
+   
+   fetch(url, {method: 'get'})
+   .then((response) => response.json())
+   .then(function(response) {
+       var element = document.getElementById(documentId);
+       if (element){
+           element.innerHTML = response;
+       }
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
 }
 
 function onForecastButtonClicked() {
