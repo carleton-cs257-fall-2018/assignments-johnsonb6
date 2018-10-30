@@ -1,0 +1,45 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>CSS for layout</title>
+    <script>var api_port = {{ api_port }};</script>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='snow_data_css.css') }}"/>
+    <script type ="text/javascript" src ="{{ url_for('static', filename='snow_data_javascript.js') }}" defer></script>
+
+    <div class ="home_opener">
+        <p> HOME! (CHANGE NAME SOON)</p>
+    </div>
+
+    <div class ="sidebar">
+        <a href ="/jackson_hole">Jackson Hole</a>
+        <a href = "/telluride">Telluride</a>
+        <a href = "/snowbird">Snowbird</a>
+        <a href = "/whistler">Whistler</a>
+    </div>
+
+
+
+</head>
+
+
+
+<body>
+    <div class = "jackson_hole_box">
+        <h4>JACKSON HOLE</h4>
+        <script></script>
+        <p>historic base depth average for today's date:
+            <span id="jackson_hole_average_base_depth"></span>
+        </p>
+    </div>
+
+    <div class = "telluride_box">
+        <a>TELLURIDE</a>
+        <a>telluride info</a>
+    </div>
+
+
+
+</body>
+
+</html>

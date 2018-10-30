@@ -22,9 +22,7 @@ import psycopg2
 # discuss in class. One common mitigation of these dangers is to put
 # the data in a separate module that's in the Python import path,
 # but not in the web server's file tree.
-from config import password
-from config import database
-from config import user
+from config import *
 database = 'johnsonb6@perlman.mathcs.carleton.edu/Accounts/courses/cs257/jondich/web-f2018/johnsonb6'
 user = 'johnsonb6'
 password = 'Gu1t@rstring'
