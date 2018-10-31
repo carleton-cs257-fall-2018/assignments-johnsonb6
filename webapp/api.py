@@ -224,6 +224,12 @@ def snowfall_for_period(resort_name, start_date, end_date):
         snowfall_list.append(snowfall_to_add)
 
     return json.dumps(snowfall_list)
+@app.route('/<resort_name>/3_day_snowfall/start_date/<start_date>')
+def three_day_snowfall(resort_name, start_date):
+    start_date_year = int(start_date[0:4])
+    start_date_month = int(start_date[4:6])
+    start_date_day = int(start_date[6:8])
+    resort_table = resort_table_dict[resort_name]
 
 @app.route('/<resort_name>/base_depth_for_period/start_date/<start_date>/end_date/<end_date>')
 def base_depth_for_period(resort_name, start_date, end_date):

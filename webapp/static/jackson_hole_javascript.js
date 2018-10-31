@@ -1,7 +1,7 @@
 initialize();
 
 function initialize() {
-    var element = document.getElementById("3_day_button");
+    var element = document.getElementById("10_day_button");
     if (element) {
         element.onclick = onForecastButtonClicked;
     }
@@ -17,19 +17,57 @@ function getBaseURL() {
 }
 
 function onForecastButtonClicked() {
-     var url = getBaseURL() + '/jackson_hole/snowfall_for_period/start_date/20170101/end_date/20170104';
+    var today = new Date();
+    var dd = String(today.getDate());
+    var mm = String(today.getMonth() + 1);
+    var yyyy = String(2017);
+    if (dd.length < 2) {
+        dd = '0' + dd;
+    }
+    if (mm.length < 2) {
+        mm = '0' + mm;
+    }
 
-     fetch(url, {method: 'get'})
-     .then((response) => response.json())
-     .then(function(response) {
-         var place_to_put_snowfall = document.getElementById('forecast_return');
-         if (place_to_put_snowfall){
-             place_to_put_snowfall.innerHTML = response;
-         }
-     })
-     .catch(function(error) {
-         console.log(error);
-       });
+    var today_date = yyyy + mm + dd;
+    var ten_days_from_today = new Date();
+    ten_days_from_today.setDate(today.getDate() + 10)
+    var end_day = String(ten_days_from_today.getDate());
+    var end_month = String(ten_days_from_today.getMonth() + 1);
+    var end_year = String(2017);
+    if (end_day.length < 2) {
+        end_day = '0' + end_day;
+    }
+    if (end_month.length < 2) {
+        end_month = '0' + end_month;
+    }
+    var ten_days_from_today_date = end_year + end_month + end_day;
+    
+    var url = getBaseURL() + '/jackson_hole/snowfall_for_period/start_date/' + today_date + '/end_date/' + ten_days_from_today_date;
+
+    fetch(url, {method: 'get'})
+    .then((response) => response.json())
+    .then(function(response) {
+        var place_to_put_snowfall = document.getElementById('forecast_return');
+        if (response.length == 0) {
+            if (place_to_put_snowfall){
+                place_to_put_snowfall.innerHTML = "no snowfall :(";
+            } 
+
+        }
+        else{
+            if (place_to_put_snowfall){
+                var txt = "";
+                response.forEach(myFunction);
+                function myFunction(v) {
+                    txt = txt + v + "in." + ", ";
+                }
+                place_to_put_snowfall.innerHTML = "Snowfall for the next 10 days:" + txt;
+            }
+        }
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
 
 }
 function onHistoricSnowfallButtonClicked() {
@@ -40,9 +78,19 @@ function onHistoricSnowfallButtonClicked() {
        .then((response) => response.json())
        .then(function(response) {
            var place_to_return = document.getElementById("historic_snowfall_results");
-           if (place_to_return) {
-             place_to_return.innerHTML = response;
-        }
+           if (response.length == 0) {
+             place_to_return.innerHTML = "no snowfall in this range";
+           }
+          else{
+              var txt = "";
+             response.forEach(myFunction);
+             function myFunction(v) {
+                 txt = txt + v + "in." + ", ";
+             }
+             place_to_return.innerHTML = "Historic Snowfall for Specified Date Range:" + txt;
+
+         }
+
     })
     .catch(function(error) {
         console.log(error);

@@ -5,7 +5,7 @@
     <title>CSS for layout</title>
     <script>var api_port = {{ api_port }};</script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='snow_data_css.css') }}"/>
-    <script type ="text/javascript" src ="{{ url_for('static', filename='snow_data_javascript.js') }}" defer></script>
+    <script type ="text/javascript" src ="{{ url_for('static', filename='jackson_hole_javascript.js') }}" defer></script>
 
     <div class ="home_opener">
         <p>jackson hole</p>
@@ -35,8 +35,7 @@
         &emsp; &emsp; &emsp; &emsp;
 
         End Date:
-        &emsp; &emsp; &emsp; &emsp;
-        Results
+        
         </p>
         <p>
         <input type = "text" id = "start_day" value="DD" size="5" maxlength = "2">
@@ -48,8 +47,8 @@
         <input type = "text" id = "end_year" value="YYYY" size="5" maxlength = "4">
         &emsp; 
         <button id = "submit_historic_snowfall">Submit</button>
-        &emsp; &emsp;
-        Results
+        </p>
+        <p>
         <span id = "historic_snowfall_results"></span>
         </p>
     </div>
@@ -57,11 +56,9 @@
     <div class = "forecast_rectangle">
         <h4> Inaccurate Forecast</h4>
         <script></script>
+       
+        <button id = "10_day_button">get forecast</button>
         <p id = "forecast_return"></p>
-        <button id = '3_day_button'>3-Day</button>
-        <button id = "5_day_button">5-Day</button>
-        <button id = "10_day_button">10-Day</button>
-
 
 
     </div>

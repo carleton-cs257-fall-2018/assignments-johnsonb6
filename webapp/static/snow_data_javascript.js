@@ -3,14 +3,18 @@ initialize();
 function initialize() {
     homePageBaseDepthAverage("jackson_hole");
     homePageSnowfallAverage("jackson_hole");
-    var element = document.getElementById("3_day_button");
-    if (element) {
-        element.onclick = onForecastButtonClicked;
-    } 
-    var historic_snowfall = document.getElementById("submit_historic_snowfall");
-    if (historic_snowfall) {
-        historic_snowfall.onclick = onHistoricSnowfallButtonClicked;   
-    }
+    
+    homePageBaseDepthAverage("telluride");
+    homePageSnowfallAverage("telluride");
+
+    homePageBaseDepthAverage("snowbird");
+    homePageSnowfallAverage("snowbird");
+    
+
+    homePageBaseDepthAverage("whistler");
+    homePageSnowfallAverage("whistler");
+
+
 }
 
 function getBaseURL() {
