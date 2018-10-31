@@ -95,7 +95,7 @@ function onHistoricSnowfallButtonClicked() {
     .then(function(response) {
         var place_to_return = document.getElementById("historic_snowfall_results");
         if (place_to_return) {
-            place_to_return.innerHTML = "hello";
+            place_to_return.innerHTML = response;
         }
     })
     .catch(function(error) {

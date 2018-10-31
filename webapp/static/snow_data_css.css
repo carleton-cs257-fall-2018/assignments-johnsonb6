@@ -52,7 +52,7 @@ h5 {
 .jackson_hole_box {
     height: 250px;
     width: 300px;
-    position: fixed;
+    position: absolute;
     left: 436px;
     top: 100px;
     background: #87CEEB;
@@ -80,7 +80,7 @@ span {
 .telluride_box {
     width: 300px;
     height: 250px;
-    position: fixed;
+    position: absolute;
     left: 912px;
     top:100px;
     background-color: #87CEEB;
@@ -96,9 +96,9 @@ span {
 }
 
 .snowbird_box {
-    position: fixed;
+    position: absolute;
     left: 436px;
-    top: 400px;
+    top: 420px;
     background-color: #87CEEB;
     width: 300px;
     height: 250px;
@@ -107,6 +107,9 @@ span {
 }
 
 .whistler_box {
+    position: absolute;
+    top: 420px;
+    left: 912px;
     background-color: #87CEEB;
     width: 300px;
     height: 250px;
