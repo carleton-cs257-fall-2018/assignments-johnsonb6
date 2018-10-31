@@ -87,7 +87,10 @@ def base_depth_average_for_date(resort_name, date):
     for row in get_select_query_results(connection, query):
         counter += 1
         total += int(row[0])
-    base_depth_to_return = int(total/counter)
+    if (counter != 0): 
+        base_depth_to_return = int(total/counter)
+    else:
+        base_depth_to_return = 0
     return json.dumps(base_depth_to_return)
 
 
@@ -131,7 +134,10 @@ def snowfall_average_for_date(resort_name, date):
     for row in get_select_query_results(connection, query):
         counter += 1
         total += int(row[0])
-    snowfall_to_return = int(total/counter)
+    if (counter != 0):
+        snowfall_to_return = int(total/counter)
+    else:
+        snowfall_to_return = 0
     return json.dumps(snowfall_to_return)
 
 @app.route('/<resort_name>/snowfall_date/year/<year>')

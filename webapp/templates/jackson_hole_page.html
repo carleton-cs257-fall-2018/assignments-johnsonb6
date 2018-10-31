@@ -39,24 +39,27 @@
         Results
         </p>
         <p>
-        <input type = "text" name="day" value="DD" size="5" maxlength = "2">
-        <input type = "text" name="month" value="MM" size="5" maxlength = "2">
-        <input type = "text" name="year" value="YYYY" size="5" maxlength = "4">
+        <input type = "text" id = "start_day" value="DD" size="5" maxlength = "2">
+        <input type = "text" id = "start_month" value="MM" size="5" maxlength = "2">
+        <input type = "text" id = "start_year" value="YYYY" size="5" maxlength = "4">
         &emsp; &emsp; &emsp; &emsp;
-        <input type = "text" name="day" value="DD" size="5" maxlength = "2">
-        <input type = "text" name="month" value="MM" size="5" maxlength = "2">
-        <input type = "text" name="year" value="YYYY" size="5" maxlength = "4">
-        &emsp; &emsp; &emsp; &emsp;
+        <input type = "text" id = "end_day" value="DD" size="5" maxlength = "2">
+        <input type = "text" id = "end_month" value="MM" size="5" maxlength = "2">
+        <input type = "text" id = "end_year" value="YYYY" size="5" maxlength = "4">
+        &emsp; 
+        <button id = "submit_historic_snowfall">Submit</button>
+        &emsp; &emsp;
         Results
+        <span id = "historic_snowfall_results"></span>
         </p>
     </div>
 
     <div class = "forecast_rectangle">
         <h4> Inaccurate Forecast</h4>
         <script></script>
-        <p id = "forecast_return">innerhtml</p>
+        <p id = "forecast_return"></p>
         <button id = '3_day_button'>3-Day</button>
-        <button id = "5_day_button" onclick = "onForecastButtonClicked()">5-Day</button>
+        <button id = "5_day_button">5-Day</button>
         <button id = "10_day_button">10-Day</button>
 
 

@@ -6,7 +6,11 @@ function initialize() {
     var element = document.getElementById("3_day_button");
     if (element) {
         element.onclick = onForecastButtonClicked;
-    }    
+    } 
+    var historic_snowfall = document.getElementById("submit_historic_snowfall");
+    if (historic_snowfall) {
+        historic_snowfall.onclick = onHistoricSnowfallButtonClicked;   
+    }
 }
 
 function getBaseURL() {
@@ -15,14 +19,25 @@ function getBaseURL() {
 }
 
 function homePageBaseDepthAverage(resort_name) {
-    var url = getBaseURL() + '/' + resort_name + '/base_depth_average/date/20170101';
+    var today = new Date();
+    var dd = String(today.getDate());
+    var mm = String(today.getMonth() + 1);
+    var yyyy = String(today.getFullYear());
+    if (dd.length < 2) {
+        dd = '0' + dd;
+    }
+    if (mm.length < 2) {
+        mm = '0' + mm;
+    }
+    
+    var today_date = yyyy + mm + dd;
 
+    var url = getBaseURL() + '/' + resort_name + '/base_depth_average/date/' + today_date;
     var documentId = resort_name + '_average_base_depth';
 
     fetch(url, {method: 'get'})
 
-    .then((response) => response.json())
-    .then(function(response) {
+    .then((response) => response.json())    .then(function(response) {
         var element = document.getElementById(documentId);
         if (element){
             element.innerHTML = response;
@@ -70,4 +85,20 @@ function onForecastButtonClicked() {
     });
     
 
+}
+function onHistoricSnowfallButtonClicked() {
+    var start_date = document.getElementById("start_year").value + document.getElementById("start_month").value + document.getElementById("start_day").value;
+    var end_date = document.getElementById("end_year").value + document.getElementById("end_month").value + document.getElementById("end_day").value; 
+    var url = getBaseURL() + "/jackson_hole"  + '/snowfall_for_period/start_date/' + start_date + '/end_date/' + end_date;
+    fetch(url, {method: 'get'})
+    .then((response) => response.json())
+    .then(function(response) {
+        var place_to_return = document.getElementById("historic_snowfall_results");
+        if (place_to_return) {
+            place_to_return.innerHTML = "hello";
+        }
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
 }
