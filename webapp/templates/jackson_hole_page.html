@@ -12,6 +12,7 @@
     </div>
 
     <div class ="sidebar">
+        <a href ="/">Home</a>
         <a href ="/jackson_hole">Jackson Hole</a>
         <a href = "/telluride">Telluride</a>
         <a href = "/snowbird">Snowbird</a>
@@ -65,7 +66,10 @@
     <div class = "highest_snowfall_in_year_rectangle">
         <h4>Highest Snowfall In Input Year</h4>
         <p>Input year:
-        <input type = "text" name="day" value="YYYY" size="5" maxlength = "4">
+        <input type = "text" id = 'snowfall_for_year' value="YYYY" size="5" maxlength = "4">
+        <button id = "submit_snowfall_for_year">Submit</button>
+        </p>
+        <p>
         Results: <span id = "highest_snowfall_in_year_results"></span>
         </p>
     </div>

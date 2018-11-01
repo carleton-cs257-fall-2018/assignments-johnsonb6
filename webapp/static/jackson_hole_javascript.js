@@ -9,6 +9,10 @@ function initialize() {
     if (historic_snowfall) {
         historic_snowfall.onclick = onHistoricSnowfallButtonClicked;
     }
+    var snowfall_for_year = document.getElementById("submit_snowfall_for_year");
+    if (snowfall_for_year) {
+        snowfall_for_year.onclick = onHighestSnowfallInYearButtonClicked;
+    }
 }
 
 function getBaseURL() {
@@ -91,6 +95,22 @@ function onHistoricSnowfallButtonClicked() {
 
          }
 
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
+}
+
+function onHighestSnowfallInYearButtonClicked() {
+    var year = document.getElementById('snowfall_for_year').value;
+    var url = getBaseURL() + "/jackson_hole/snowfall_date/year/" + year;
+    fetch(url, {method: 'get'})
+    .then((response) => response.json())
+    .then(function(response) {
+        var place_for_return = document.getElementById("highest_snowfall_in_year_results");
+        if (place_for_return) {
+            place_for_return.innerHTML = "Highest snowfall in " + year + ": " + response + " in.";
+        }
     })
     .catch(function(error) {
         console.log(error);

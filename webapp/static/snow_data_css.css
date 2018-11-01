@@ -18,7 +18,7 @@ h5 {
 .home_opener {
     position: fixed;
     left: 10px;
-    top: 20px;
+    top: 0px;
     font-family: "Lucida Sans Unicode", Helvetica, "Arial Unicode MS", Arial serif;
     font-size: 4em;
 
@@ -132,7 +132,7 @@ span {
 .snowfall_rectangle {
     position: absolute;
     left: 300px;
-    top: 100px;
+    top: 150px;
     background-color: #87CEEB;
     width: 700px;
     height: 250px;
@@ -140,7 +140,7 @@ span {
     margin: 25px;
 }
 
-.rectangle p {
+.snowfall_rectangle p {
     color: #4682B4;
     font-family: "Lucida Sans Unicode", Helvetica, "Arial Unicode MS", Arial serif;
 }
@@ -148,7 +148,7 @@ span {
 .forecast_rectangle {
     position: absolute;
     left: 300px;
-    top: 400px;
+    top: 450px;
     background-color: #87CEEB;
     width: 700px;
     height: 250px;
@@ -165,13 +165,18 @@ span {
     background-color: #87CEEB;
     position: absolute;
     left: 300px;
-    top: 700px;
+    top: 750px;
     width: 700px;
     height: 160px;
     padding: 20px;
     margin: 25px;
 }
 
+.highest_snowfall_in_year_rectangle p {
+    color: #4682B4;
+    font-family: "Lucida Sans Unicode", Helvetica, "Arial Unicode MS", Arial serif;
+    font-size: 20px;
+}
 
 /*
 @media screen and (max-height: 450px) {
