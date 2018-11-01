@@ -85,15 +85,18 @@ function onHistoricSnowfallButtonClicked() {
            if (response.length == 0) {
              place_to_return.innerHTML = "no snowfall in this range";
            }
-          else{
-              var txt = "";
+           else if (response.length > 20) {
+              place_to_return.innerHTML = "please input a date range of fewer than 20 days";
+                
+           }
+           else{
+             var txt = "";
              response.forEach(myFunction);
              function myFunction(v) {
-                 txt = txt + v + "in." + ", ";
+                 txt = txt + v.substr(1, v.length-2) + " in." + ", ";
              }
-             place_to_return.innerHTML = "Historic Snowfall for Specified Date Range:" + txt;
-
-         }
+             place_to_return.innerHTML = "Historic Snowfall for Specified Date Range: " + txt.substring(0, txt.length - 2);
+           }
 
     })
     .catch(function(error) {

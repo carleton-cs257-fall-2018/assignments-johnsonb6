@@ -20,9 +20,24 @@ h2{
     font-family: "Lucida Sans Unicode", Helvetica, "Arial Unicode MS", Arial serif;
 
 }
-
-.home_opener {
+.info_box {
+    background: #87CEEB;
+    width: 225px;
     position: fixed;
+    z-index: 1;
+    top: 400px;
+    left: 10px;
+    background: #87CEEB;
+    overflow-x: hidden;
+    padding: 0px 15px;
+}
+.info_box p {
+    color: #154360;
+    font-size: 20px;
+
+}
+.home_opener {
+    position: absolute;
     left: 10px;
     top: 0px;
     font-family: "Lucida Sans Unicode", Helvetica, "Arial Unicode MS", Arial serif;
