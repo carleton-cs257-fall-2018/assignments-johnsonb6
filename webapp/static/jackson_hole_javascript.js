@@ -45,7 +45,7 @@ function onForecastButtonClicked() {
         end_month = '0' + end_month;
     }
     var ten_days_from_today_date = end_year + end_month + end_day;
-    
+
     var url = getBaseURL() + '/jackson_hole/snowfall_for_period/start_date/' + today_date + '/end_date/' + ten_days_from_today_date;
 
     fetch(url, {method: 'get'})
@@ -55,7 +55,7 @@ function onForecastButtonClicked() {
         if (response.length == 0) {
             if (place_to_put_snowfall){
                 place_to_put_snowfall.innerHTML = "no snowfall :(";
-            } 
+            }
 
         }
         else{

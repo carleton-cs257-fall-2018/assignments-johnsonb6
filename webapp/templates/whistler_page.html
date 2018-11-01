@@ -5,41 +5,23 @@
     <title>CSS for layout</title>
     <script>var api_port = {{ api_port }};</script>
     <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='snow_data_css.css') }}"/>
-    <script type ="text/javascript" src ="{{ url_for('static', filename='snow_data_javascript.js') }}" defer></script>
+    <script type ="text/javascript" src ="{{ url_for('static', filename='whistler_javascript.js') }}" defer></script>
 
     <div class ="home_opener">
         <p>jackson hole</p>
     </div>
 
     <div class ="sidebar">
+        <a href ="/">Home</a>
         <a href ="/jackson_hole">Jackson Hole</a>
         <a href = "/telluride">Telluride</a>
         <a href = "/snowbird">Snowbird</a>
         <a href = "/whistler">Whistler</a>
     </div>
 
-    </head>
 
 
-
-    <body>
-
-        <div class = "snowfall_rectangle">
-            <h4> Historic Snowfall</h4>
-            <h5>Snowfall From: </h5>
-
-            <p>
-            Start Date:
-            &emsp; &emsp; &emsp; &emsp;
-
-            End Date:
-            &emsp; &emsp; &emsp; &emsp;
-            Results
-            </p>
-            <p>
-            <input type = "text" id = "start_day" value="DD" size="5" maxlength = "2">
-
-            </head>
+</head>
 
 
 
@@ -54,28 +36,44 @@
         &emsp; &emsp; &emsp; &emsp;
 
         End Date:
-        &emsp; &emsp; &emsp; &emsp;
-        Results
+
         </p>
         <p>
         <input type = "text" id = "start_day" value="DD" size="5" maxlength = "2">
-        <script></script>
-        <p id = "forecast_return"></p>
-        <button id = '3_day_button'>3-Day</button>
-        <button id = "5_day_button">5-Day</button>
-        <button id = "10_day_button">10-Day</button>
+        <input type = "text" id = "start_month" value="MM" size="5" maxlength = "2">
+        <input type = "text" id = "start_year" value="YYYY" size="5" maxlength = "4">
+        &emsp; &emsp; &emsp; &emsp;
+        <input type = "text" id = "end_day" value="DD" size="5" maxlength = "2">
+        <input type = "text" id = "end_month" value="MM" size="5" maxlength = "2">
+        <input type = "text" id = "end_year" value="YYYY" size="5" maxlength = "4">
+        &emsp;
+        <button id = "submit_historic_snowfall">Submit</button>
+        </p>
+        <p>
+        <span id = "historic_snowfall_results"></span>
+        </p>
+    </div>
 
+    <div class = "forecast_rectangle">
+        <h4> Inaccurate Forecast</h4>
+        <script></script>
+
+        <button id = "10_day_button">get forecast</button>
+        <p id = "forecast_return"></p>
 
 
     </div>
     <div class = "highest_snowfall_in_year_rectangle">
         <h4>Highest Snowfall In Input Year</h4>
         <p>Input year:
-        <input type = "text" name="day" value="YYYY" size="5" maxlength = "4">
+        <input type = "text" id = 'snowfall_for_year' value="YYYY" size="5" maxlength = "4">
+        <button id = "submit_snowfall_for_year">Submit</button>
+        </p>
+        <p>
         Results: <span id = "highest_snowfall_in_year_results"></span>
         </p>
     </div>
 
 </body>
 
-</html> 
+</html>

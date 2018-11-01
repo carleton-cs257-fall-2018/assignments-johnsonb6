@@ -8,24 +8,27 @@
     <script type ="text/javascript" src ="{{ url_for('static', filename='telluride_javascript.js') }}" defer></script>
 
     <div class ="home_opener">
-        <p>telluride</p>
+        <p>jackson hole</p>
     </div>
 
     <div class ="sidebar">
+        <a href ="/">Home</a>
         <a href ="/jackson_hole">Jackson Hole</a>
         <a href = "/telluride">Telluride</a>
         <a href = "/snowbird">Snowbird</a>
         <a href = "/whistler">Whistler</a>
     </div>
 
-    </head>
+
+
+</head>
 
 
 
-    <body>
+<body>
 
-        <div class = "snowfall_rectangle">
-                <h4> Historic Snowfall</h4>
+    <div class = "snowfall_rectangle">
+        <h4> Historic Snowfall</h4>
         <h5>Snowfall From: </h5>
 
         <p>
@@ -50,8 +53,6 @@
         <span id = "historic_snowfall_results"></span>
         </p>
     </div>
-            
-
 
     <div class = "forecast_rectangle">
         <h4> Inaccurate Forecast</h4>
@@ -62,13 +63,13 @@
 
 
     </div>
-
-
-    
     <div class = "highest_snowfall_in_year_rectangle">
         <h4>Highest Snowfall In Input Year</h4>
         <p>Input year:
-        <input type = "text" name="day" value="YYYY" size="5" maxlength = "4">
+        <input type = "text" id = 'snowfall_for_year' value="YYYY" size="5" maxlength = "4">
+        <button id = "submit_snowfall_for_year">Submit</button>
+        </p>
+        <p>
         Results: <span id = "highest_snowfall_in_year_results"></span>
         </p>
     </div>

@@ -1,43 +1,3 @@
-st login: Tue Oct 30 13:34:12 on ttys003
-eduroam-160-44:webapp brennanjohnson$ ssh johnsonb6@perlman.mathcs.carleton.edu
-johnsonb6@perlman.mathcs.carleton.edu's password: 
-Last login: Tue Oct 30 18:46:28 2018 from eduroam-160-44.dyn.carleton.edu
-
-This is perlman.mathcs.carleton.edu running CentOS 7.
-
-johnsonb6@perlman ~ $ cd /var/www/html/cs257/johnsonb6
-johnsonb6@perlman /var/www/html/cs257/johnsonb6 $ cd assignments-johnsonb6/
-johnsonb6@perlman /var/www/html/cs257/johnsonb6/assignments-johnsonb6 $ cd webapp
-johnsonb6@perlman /var/www/html/cs257/johnsonb6/assignments-johnsonb6/webapp $ ls
-api.py                  endpoints.py            run_website.py      static               templates               Whistler_Final.csv
-csv_converter_final.py  Jackson_Hole.csv        Snowbird.csv        Telluride.csv        TestAPIQueries.py
-dump.sql                Jackson_Hole_Final.csv  Snowbird_Final.csv  Telluride_Final.csv  Whistler_Blackcomb.csv
-johnsonb6@perlman /var/www/html/cs257/johnsonb6/assignments-johnsonb6/webapp $ vi api.py
-johnsonb6@perlman /var/www/html/cs257/johnsonb6/assignments-johnsonb6/webapp $ ls static/
-jackson_hole_javascript.js  snow_data_css.css        telluride_javascript.js
-snowbird_javascript.js      snow_data_javascript.js  whistler_javascript.js
-johnsonb6@perlman /var/www/html/cs257/johnsonb6/assignments-johnsonb6/webapp $ vi static/snow_data_javascript.js 
-
-
-
-
-
-
-
-
-
-
-johnsonb6@perlman /var/www/html/cs257/johnsonb6/assignments-johnsonb6/webapp $ vi static/jackson_hole_page.html
-johnsonb6@perlman /var/www/html/cs257/johnsonb6/assignments-johnsonb6/webapp $ vi templates/jackson_hole_page.html
-johnsonb6@perlman /var/www/html/cs257/johnsonb6/assignments-johnsonb6/webapp $ vi static/jackson_hole_javascript.js
-
-
-
-
-
-
-
-
 initialize();
 
 function initialize() {
@@ -48,6 +8,10 @@ function initialize() {
     var historic_snowfall = document.getElementById("submit_historic_snowfall");
     if (historic_snowfall) {
         historic_snowfall.onclick = onHistoricSnowfallButtonClicked;
+    }
+    var snowfall_for_year = document.getElementById("submit_snowfall_for_year");
+    if (snowfall_for_year) {
+        snowfall_for_year.onclick = onHighestSnowfallInYearButtonClicked;
     }
 }
 
@@ -131,6 +95,22 @@ function onHistoricSnowfallButtonClicked() {
 
          }
 
+    })
+    .catch(function(error) {
+        console.log(error);
+    });
+}
+
+function onHighestSnowfallInYearButtonClicked() {
+    var year = document.getElementById('snowfall_for_year').value;
+    var url = getBaseURL() + "/telluride/snowfall_date/year/" + year;
+    fetch(url, {method: 'get'})
+    .then((response) => response.json())
+    .then(function(response) {
+        var place_for_return = document.getElementById("highest_snowfall_in_year_results");
+        if (place_for_return) {
+            place_for_return.innerHTML = "Highest snowfall in " + year + ": " + response + " in.";
+        }
     })
     .catch(function(error) {
         console.log(error);
