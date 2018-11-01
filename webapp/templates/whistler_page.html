@@ -8,7 +8,7 @@
     <script type ="text/javascript" src ="{{ url_for('static', filename='whistler_javascript.js') }}" defer></script>
 
     <div class ="home_opener">
-        <p>jackson hole</p>
+        <p>whistler</p>
     </div>
 
     <div class ="sidebar">
@@ -28,8 +28,8 @@
 <body>
 
     <div class = "snowfall_rectangle">
-        <h4> Historic Snowfall</h4>
-        <h5>Snowfall From: </h5>
+        <h2> Historic Snowfall</h2>
+        <p>Snowfall From: </p>
 
         <p>
         Start Date:
@@ -55,7 +55,7 @@
     </div>
 
     <div class = "forecast_rectangle">
-        <h4> Inaccurate Forecast</h4>
+        <h2> Inaccurate Forecast</h2>
         <script></script>
 
         <button id = "10_day_button">get forecast</button>
@@ -64,7 +64,7 @@
 
     </div>
     <div class = "highest_snowfall_in_year_rectangle">
-        <h4>Highest Snowfall In Input Year</h4>
+        <h2>Highest Snowfall In Input Year</h2>
         <p>Input year:
         <input type = "text" id = 'snowfall_for_year' value="YYYY" size="5" maxlength = "4">
         <button id = "submit_snowfall_for_year">Submit</button>

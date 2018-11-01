@@ -46,7 +46,7 @@ function onForecastButtonClicked() {
     }
     var ten_days_from_today_date = end_year + end_month + end_day;
 
-    var url = getBaseURL() + '/whistler /snowfall_for_period/start_date/' + today_date + '/end_date/' + ten_days_from_today_date;
+    var url = getBaseURL() + '/whistler/snowfall_for_period/start_date/' + today_date + '/end_date/' + ten_days_from_today_date;
 
     fetch(url, {method: 'get'})
     .then((response) => response.json())

@@ -15,6 +15,12 @@ h5 {
 
 }
 
+h2{
+    color: #154360;
+    font-family: "Lucida Sans Unicode", Helvetica, "Arial Unicode MS", Arial serif;
+
+}
+
 .home_opener {
     position: fixed;
     left: 10px;
@@ -30,7 +36,7 @@ h5 {
     width: 260px;
     position: fixed;
     z-index: 1;
-    top: 250px;
+    top: 175px;
     left: 10px;
     background: #87CEEB;
     overflow-x: hidden;
@@ -53,8 +59,8 @@ h5 {
     height: 250px;
     width: 300px;
     position: absolute;
-    left: 436px;
-    top: 100px;
+    left: 300px;
+    top: 150px;
     background: #87CEEB;
     padding: 20px;
     margin: 25px;
@@ -81,8 +87,8 @@ span {
     width: 300px;
     height: 250px;
     position: absolute;
-    left: 912px;
-    top:100px;
+    left: 776px;
+    top: 150px;
     background-color: #87CEEB;
     padding: 20px;
     margin: 25px;
@@ -97,8 +103,8 @@ span {
 
 .snowbird_box {
     position: absolute;
-    left: 436px;
-    top: 420px;
+    left: 300px;
+    top: 470px;
     background-color: #87CEEB;
     width: 300px;
     height: 250px;
@@ -114,8 +120,8 @@ span {
 }
 .whistler_box {
     position: absolute;
-    top: 420px;
-    left: 912px;
+    top: 470px;
+    left: 776px;
     background-color: #87CEEB;
     width: 300px;
     height: 250px;
@@ -175,7 +181,7 @@ span {
 .highest_snowfall_in_year_rectangle p {
     color: #4682B4;
     font-family: "Lucida Sans Unicode", Helvetica, "Arial Unicode MS", Arial serif;
-    font-size: 20px;
+    font-size: 16px;
 }
 
 /*
