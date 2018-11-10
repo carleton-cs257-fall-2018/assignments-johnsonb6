@@ -1,0 +1,21 @@
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import game_of_life.CellView?>
+<BorderPane fx:controller="game_of_life.Controller" xmlns:fx="http://javafx.com/fxml">
+    <top>
+        <BorderPane prefHeight="35" style="-fx-background-color: #0B5091; -fx-padding: 10px, 5px, 10px, 5px">
+        </BorderPane>
+    </top>
+
+    <center>
+        <CellView fx:id="cellView" rowCount="25" columnCount="40" />
+    </center>
+
+    <bottom>
+        <HBox prefHeight="35" style="-fx-padding: 10px, 5px, 10px, 5px; -fx-background-color: #F3B61D">
+            <Label style="-fx-font-size: 140%; -fx-text-fill: white"
+                   text="Click to place live cells // R (run) // P (pause) // N (next)" />
+        </HBox>
+    </bottom>
+</BorderPane>

@@ -12,11 +12,13 @@ import javafx.scene.shape.Rectangle;
 public class CellView extends Group {
     public final static double CELL_WIDTH = 20.0;
 
-    @FXML private int rowCount;
-    @FXML private int columnCount;
+    @FXML
+    private int rowCount;
+    @FXML
+    private int columnCount;
     private Rectangle[][] cellViews;
 
-    public DaleksView() {
+    public CellView() {
     }
 
     public int getRowCount() {
@@ -43,8 +45,8 @@ public class CellView extends Group {
             for (int row = 0; row < this.rowCount; row++) {
                 for (int column = 0; column < this.columnCount; column++) {
                     Rectangle rectangle = new Rectangle();
-                    rectangle.setX((double)column * CELL_WIDTH);
-                    rectangle.setY((double)row * CELL_WIDTH);
+                    rectangle.setX((double) column * CELL_WIDTH);
+                    rectangle.setY((double) row * CELL_WIDTH);
                     rectangle.setWidth(CELL_WIDTH);
                     rectangle.setHeight(CELL_WIDTH);
                     this.cellViews[row][column] = rectangle;
@@ -54,21 +56,19 @@ public class CellView extends Group {
         }
     }
 
-    public void update(DaleksModel model) {
+    public void update(CellModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
         for (int row = 0; row < this.rowCount; row++) {
             for (int column = 0; column < this.columnCount; column++) {
-                DaleksModel.CellValue cellValue = model.getCellValue(row, column);
-                if (cellValue == DaleksModel.CellValue.DALEK) {
-                    this.cellViews[row][column].setFill(Color.RED);
-                } else if (cellValue == DaleksModel.CellValue.SCRAPHEAP) {
+                CellModel.CellValue cellValue = model.getCellValue(row, column);
+                if (cellValue == CellModel.CellValue.DEAD) {
                     this.cellViews[row][column].setFill(Color.BLACK);
-                } else if (cellValue == DaleksModel.CellValue.RUNNER) {
-                    this.cellViews[row][column].setFill(Color.GREEN);
-                } else {
+                } else if (cellValue == CellModel.CellValue.ALIVE) {
                     this.cellViews[row][column].setFill(Color.WHITE);
                 }
             }
+
         }
     }
+
 }

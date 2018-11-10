@@ -10,7 +10,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception{
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("daleks.fxml"));
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("gameoflife.fxml"));
         Parent root = loader.load();
         primaryStage.setTitle("Game of Life");
 
