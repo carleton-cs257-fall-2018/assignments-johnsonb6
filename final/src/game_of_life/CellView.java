@@ -63,9 +63,12 @@ public class CellView extends Group {
                 CellModel.CellValue cellValue = model.getCellValue(row, column);
                 if (cellValue == CellModel.CellValue.DEAD) {
                     this.cellViews[row][column].setFill(Color.BLACK);
+                    this.cellViews[row][column].setStroke(Color.WHITE);
                 } else if (cellValue == CellModel.CellValue.ALIVE) {
                     this.cellViews[row][column].setFill(Color.WHITE);
                 }
+                //here is where we need to call the check adjacent method.
+                // I put it in cellModel but maybe it could go in this file instead
             }
 
         }

@@ -42,5 +42,8 @@ public class Controller implements EventHandler<KeyEvent> {
         if (s.length() > 0) {
             char theCharacterWeWant = s.charAt(0);
         }
+        if (s.equals("N")) {
+            this.update();
+        }
     }
 }
