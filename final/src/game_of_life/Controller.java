@@ -17,7 +17,7 @@ public class Controller implements EventHandler<KeyEvent> {
 
     public void initialize() {
         this.cellModel = new CellModel(this.cellView.getRowCount(), this.cellView.getColumnCount());
-        this.update();
+        this.nextGeneration();
     }
 
     public double getBoardWidth() {
@@ -28,8 +28,8 @@ public class Controller implements EventHandler<KeyEvent> {
         return CellView.CELL_WIDTH * this.cellView.getRowCount();
     }
 
-    private void update() {
-        this.cellView.update(this.cellModel);
+    private void nextGeneration() {
+        this.cellView.nextGeneration(this.cellModel);
 
     }
 
