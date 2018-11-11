@@ -12,20 +12,22 @@ public class CellModel {
     // the contents of cells, so we have to be careful throughout to keep them
     // coherent. We maintain this redundancy to avoid lags for large boards.
     private CellValue[][] cells;
+    private int numberOfAliveCells;
+    private int numberOfGenerations;
 
 
     public CellModel(int rowCount, int columnCount) {
         assert rowCount > 0 && columnCount > 0;
         this.cells = new CellValue[rowCount][columnCount];
-        this.startNewGame();
+        this.startSimulation();
     }
 
-    public void startNewGame() {
+    public void startSimulation() {
 
-        this.initializeGame();
+        this.initializeSimulation();
     }
 
-    private void initializeGame() {
+    private void initializeSimulation() {
         int rowCount = this.cells.length;
         int columnCount = this.cells[0].length;
 
@@ -53,7 +55,18 @@ public class CellModel {
         return this.cells[0].length;
     }
 
+
+
+    public void setCellDead(int row, int column) {
+        // sets cell to dead
+    }
+
+    public void setCellAlive(int row, int column) {
+        // sets cell to alive
+    }
+
     public void checkAdjacent() {
+        // checks the status of the adjacent cells
         int rowCount = this.cells.length;
         int columnCount = this.cells[0].length;
 

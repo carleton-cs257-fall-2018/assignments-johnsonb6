@@ -12,10 +12,8 @@ import javafx.scene.shape.Rectangle;
 public class CellView extends Group {
     public final static double CELL_WIDTH = 20.0;
 
-    @FXML
-    private int rowCount;
-    @FXML
-    private int columnCount;
+    @FXML private int rowCount;
+    @FXML private int columnCount;
     private Rectangle[][] cellViews;
 
     public CellView() {
@@ -56,7 +54,7 @@ public class CellView extends Group {
         }
     }
 
-    public void update(CellModel model) {
+    public void nextGeneration(CellModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
         for (int row = 0; row < this.rowCount; row++) {
             for (int column = 0; column < this.columnCount; column++) {
@@ -70,5 +68,4 @@ public class CellView extends Group {
 
         }
     }
-
 }
