@@ -5,6 +5,7 @@ import javafx.event.EventHandler;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 
 public class Controller implements EventHandler<KeyEvent> {
     @FXML private Label scoreLabel;
@@ -43,7 +44,11 @@ public class Controller implements EventHandler<KeyEvent> {
             char theCharacterWeWant = s.charAt(0);
         }
         if (s.equals("N")) {
-            this.update();
+            this.nextGeneration();
         }
+    }
+    public void handle(MouseEvent mouseEvent) {
+        //Need to only handle mouse clicked
+        //change the status of the clicked on cell to dead or alive, whichever it is not
     }
 }
