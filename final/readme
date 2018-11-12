@@ -1,0 +1,17 @@
+Game of Life
+Brennan Johnson and Silas Monahan
+
+Description:
+We made a simulation of John Horton Conway’s Game of Life. The game of life is a simulation that models cells living in an environment, and each cell is represented by a square on a square grid. The “game” flows in a series of steps, or generations, where each generation a cell can die, become alive, or stay in its previous state. These outcomes are determined for each cell using this set of rules:
+	1.	If an alive cell is surrounded by more than three other living cells, it dies
+	2.	If an alive cell is surrounded by fewer than two other living cells, it dies
+	3.	If a alive cell is surrounded by two or three other alive cells, it stays alive
+	4.	If a dead cell is surrounded by exactly three live cells, it becomes alive 
+In our simulation, you can either run the simulation constantly, or click through each generation individually.
+
+Why We Used MVC:
+We are using a cell model for our project, which describes the grid of cells in our game of life. This model handles all of the aspects of the individual cells, as it can go through the grid and inspect each one. Our view is called CellView, which accesses the cell model and changes it for each generation. MVC is useful for this project because the user can interact with the view, and our cell model can work in the background to update what the view should show. MVC allows for an easy flow between user interaction and a background of data, and our simulation needs that to simulate the game of life.
+
+Core Classes:
+Class CellModel
+	-we only have one class, since our project is based around one entity.
