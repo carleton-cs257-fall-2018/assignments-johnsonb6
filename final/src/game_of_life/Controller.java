@@ -7,7 +7,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 
-public class Controller implements EventHandler<KeyEvent> {
+public class Controller implements EventHandler<MouseEvent> {
     @FXML private Label scoreLabel;
     @FXML private Label messageLabel;
     @FXML private CellView cellView;
@@ -47,6 +47,8 @@ public class Controller implements EventHandler<KeyEvent> {
             this.nextGeneration();
         }
     }
+
+    @Override
     public void handle(MouseEvent mouseEvent) {
         //Need to only handle mouse clicked
         //change the status of the clicked on cell to dead or alive, whichever it is not
