@@ -49,11 +49,15 @@ public class CellView extends Group {
                     rectangle.setHeight(CELL_WIDTH);
                     this.cellViews[row][column] = rectangle;
                     this.getChildren().add(rectangle);
+                    //added these next two rows
+                    this.cellViews[row][column].setFill(Color.BLACK);
+                    this.cellViews[row][column].setStroke(Color.WHITE);
                 }
             }
         }
     }
 
+    /*
     public void nextGeneration(CellModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
         for (int row = 0; row < this.rowCount; row++) {
@@ -69,6 +73,40 @@ public class CellView extends Group {
                 // I put it in cellModel but maybe it could go in this file instead
             }
 
+        }
+    }*/
+
+    public void nextGeneration(CellModel model) {
+        assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
+        model.tempCells = model.cells;
+        for (int row = 0; row < this.rowCount; row++) {
+            for (int column = 0; column < this.columnCount; column++) {
+                CellModel.CellValue cellValue = model.getCellValue(row, column);
+                if (cellValue == CellModel.CellValue.DEAD) {
+                    if (model.cells[row][column].checkAdjacent() == 3) {
+                        model.setCellAlive(row, column, model.tempCells);
+                    }
+                } else if (cellValue == CellModel.CellValue.ALIVE) {
+                    if (model.cells[row][column].checkAdjacent() > 3 || model.cells[row][column].checkAdjacent() < 2) {
+                        model.setCellDead(row, column, model.tempCells);
+                    }
+                }
+                //here is where we need to call the check adjacent method.
+                // I put it in cellModel but maybe it could go in this file instead
+            }
+
+        }
+        model.cells = model.tempCells;
+        for (int row = 0; row < this.rowCount; row++) {
+            for (int column = 0; column < this.columnCount; column++) {
+                CellModel.CellValue cellValue = model.getCellValue(row, column);
+                if (cellValue == CellModel.CellValue.ALIVE) {
+                    this.cellViews[row][column].setFill(Color.YELLOW);
+                }
+                if (cellValue == CellModel.CellValue.DEAD) {
+                    this.cellViews[row][column].setFill(Color.BLACK);
+                }
+            }
         }
     }
 }

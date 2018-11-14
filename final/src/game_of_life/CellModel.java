@@ -11,7 +11,8 @@ public class CellModel {
     // Note that runnerRow, runnerColumn, and dalekCount are all redundant with
     // the contents of cells, so we have to be careful throughout to keep them
     // coherent. We maintain this redundancy to avoid lags for large boards.
-    private CellValue[][] cells;
+    public CellValue[][] cells;
+    public CellValue[][] tempCells;
     private int numberOfAliveCells;
     private int numberOfGenerations;
 
@@ -57,12 +58,12 @@ public class CellModel {
 
 
 
-    public void setCellDead(int row, int column) {
-        // sets cell to dead
+    public void setCellDead(int row, int column, CellValue[][] list) {
+        list[row][column] = CellValue.DEAD;
     }
 
-    public void setCellAlive(int row, int column) {
-        // sets cell to alive
+    public void setCellAlive(int row, int column, CellValue[][] list) {
+        list[row][column] = CellValue.ALIVE;
     }
 
     public void checkAdjacent() {
@@ -72,7 +73,47 @@ public class CellModel {
 
         for (int row = 0; row < rowCount; row++) {
             for (int column = 0; column < columnCount; column++) {
-
+                private int adjacentCount = 0;
+                if (row > 0 && column > 0) { //up left
+                    if (cells[row - 1][column - 1] == CellValue.ALIVE) {
+                        adjacentCount++;
+                    }
+                }
+                if (row > 0) { //up
+                    if (cells[row - 1][column] == CellValue.ALIVE) {
+                        adjacentCount++;
+                    }
+                }
+                if (column < columnCount - 1 && row > 0) { //up right
+                    if (cells[row - 1][column + 1] == CellValue.ALIVE) {
+                        adjacentCount++;
+                    }
+                }
+                if (column < columnCount - 1) { //right
+                    if (cells[row][column + 1] == CellValue.ALIVE) {
+                        adjacentCount++;
+                    }
+                }
+                if (column < columnCount - 1 && row < rowCount - 1) { //down right
+                    if (cells[row + 1][column + 1] == CellValue.ALIVE) {
+                        adjacentCount++;
+                    }
+                }
+                if (row < rowCount - 1) { //down
+                    if (cells[row + 1][column] == CellValue.ALIVE) {
+                        adjacentCount++;
+                    }
+                }
+                if (row < rowCount - 1 && column > 0) { //down left
+                    if (cells[row + 1][column - 1] == CellValue.ALIVE) {
+                        adjacentCount++;
+                    }
+                }
+                if (column > 0) { //left
+                    if (cells[row][column - 1] == CellValue.ALIVE) {
+                        adjacentCount++;
+                    }
+                }
             }
         }
     }
