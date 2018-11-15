@@ -19,7 +19,7 @@
     <bottom>
         <HBox prefHeight="35" style="-fx-padding: 10px, 5px, 10px, 5px; -fx-background-color: #8B0000">
             <Label style="-fx-font-size: 140%; -fx-text-fill: white"
-                   text="Click to place live cells // R (run) // P (pause) // N (next)" />
+                   text="Click to place live cells // R (run) // P (pause) // N (next) // G (restart)" />
         </HBox>
     </bottom>
 </BorderPane>

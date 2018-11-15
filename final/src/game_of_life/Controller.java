@@ -56,6 +56,9 @@ public class Controller implements EventHandler<KeyEvent> {
         if (s.equals("N")) {
             this.nextGeneration();
         }
+        if (s.equals("G")) {
+            this.cellModel.startSimulation();
+        }
     }
 
     public void handleMouseEvent(MouseEvent mouseEvent) {
