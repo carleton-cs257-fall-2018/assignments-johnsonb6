@@ -69,12 +69,12 @@ public class Controller implements EventHandler<KeyEvent> {
             for (int column = 0; column < columnCount; column++) {
                 if (cellView.cellViews[row][column].contains(mouseX, mouseY)) {
                     if (cellModel.cells[row][column] == CellValue.DEAD) {
-                        CellModel.setCellAlive(row, column, cellModel.cells);
-                        cellView.setAliveColor(row, column);
+                        cellModel.setCellAlive(row, column, cellModel.cells);
+                        cellView.setAliveColor(row, column, cellView.cellViews);
                     }
-                    if (cellModel.cells[row][column] == CellValue.ALIVE) {
-                        CellModel.setCellDead(row, column, cellModel.cells);
-                        cellView.setDeadColor(row, column);
+                    else {
+                        cellModel.setCellDead(row, column, cellModel.cells);
+                        cellView.setDeadColor(row, column, cellView.cellViews);
                     }
                 }
             }
