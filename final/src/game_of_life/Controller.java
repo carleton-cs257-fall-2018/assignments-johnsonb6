@@ -6,8 +6,12 @@ import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
+import javafx.scene.paint.Color;
 
-public class Controller implements EventHandler<MouseEvent> {
+import static game_of_life.CellModel.*;
+import static game_of_life.CellView.*;
+
+public class Controller implements EventHandler<KeyEvent> {
     @FXML private Label scoreLabel;
     @FXML private Label messageLabel;
     @FXML private CellView cellView;
@@ -18,20 +22,26 @@ public class Controller implements EventHandler<MouseEvent> {
 
     public void initialize() {
         this.cellModel = new CellModel(this.cellView.getRowCount(), this.cellView.getColumnCount());
+
+        this.cellView.addEventFilter(MouseEvent.MOUSE_PRESSED, new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent mouseEvent) {
+                handleMouseEvent(mouseEvent);
+            }
+        });
         this.nextGeneration();
     }
 
     public double getBoardWidth() {
-        return CellView.CELL_WIDTH * this.cellView.getColumnCount();
+        return CELL_WIDTH * this.cellView.getColumnCount();
     }
 
     public double getBoardHeight() {
-        return CellView.CELL_WIDTH * this.cellView.getRowCount();
+        return CELL_WIDTH * this.cellView.getRowCount();
     }
 
     private void nextGeneration() {
         this.cellView.nextGeneration(this.cellModel);
-
     }
 
     @Override
@@ -48,9 +58,26 @@ public class Controller implements EventHandler<MouseEvent> {
         }
     }
 
-    @Override
-    public void handle(MouseEvent mouseEvent) {
-        //Need to only handle mouse clicked
-        //change the status of the clicked on cell to dead or alive, whichever it is not
+    public void handleMouseEvent(MouseEvent mouseEvent) {
+        int rowCount = cellModel.cells.length;
+        int columnCount = cellModel.cells[0].length;
+
+        double mouseX = mouseEvent.getSceneX() - 10;
+        double mouseY = mouseEvent.getSceneY() - 45;
+
+        for (int row = 0; row < rowCount; row++) {
+            for (int column = 0; column < columnCount; column++) {
+                if (cellView.cellViews[row][column].contains(mouseX, mouseY)) {
+                    if (cellModel.cells[row][column] == CellValue.DEAD) {
+                        CellModel.setCellAlive(row, column, cellModel.cells);
+                        cellView.setAliveColor(row, column);
+                    }
+                    if (cellModel.cells[row][column] == CellValue.ALIVE) {
+                        CellModel.setCellDead(row, column, cellModel.cells);
+                        cellView.setDeadColor(row, column);
+                    }
+                }
+            }
+        }
     }
 }

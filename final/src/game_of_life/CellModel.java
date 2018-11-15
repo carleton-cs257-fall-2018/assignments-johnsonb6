@@ -58,64 +58,58 @@ public class CellModel {
 
 
 
-    public void setCellDead(int row, int column, CellValue[][] list) {
+    public static void setCellDead(int row, int column, CellValue[][] list) {
         list[row][column] = CellValue.DEAD;
     }
 
-    public void setCellAlive(int row, int column, CellValue[][] list) {
+    public static void setCellAlive(int row, int column, CellValue[][] list) {
         list[row][column] = CellValue.ALIVE;
     }
 
-    public void checkAdjacent() {
+    public int checkAdjacent(int row, int column) {
         // checks the status of the adjacent cells
         int rowCount = this.cells.length;
         int columnCount = this.cells[0].length;
 
-        for (int row = 0; row < rowCount; row++) {
-            for (int column = 0; column < columnCount; column++) {
-                private int adjacentCount = 0;
-                if (row > 0 && column > 0) { //up left
-                    if (cells[row - 1][column - 1] == CellValue.ALIVE) {
-                        adjacentCount++;
-                    }
-                }
-                if (row > 0) { //up
-                    if (cells[row - 1][column] == CellValue.ALIVE) {
-                        adjacentCount++;
-                    }
-                }
-                if (column < columnCount - 1 && row > 0) { //up right
-                    if (cells[row - 1][column + 1] == CellValue.ALIVE) {
-                        adjacentCount++;
-                    }
-                }
-                if (column < columnCount - 1) { //right
-                    if (cells[row][column + 1] == CellValue.ALIVE) {
-                        adjacentCount++;
-                    }
-                }
-                if (column < columnCount - 1 && row < rowCount - 1) { //down right
-                    if (cells[row + 1][column + 1] == CellValue.ALIVE) {
-                        adjacentCount++;
-                    }
-                }
-                if (row < rowCount - 1) { //down
-                    if (cells[row + 1][column] == CellValue.ALIVE) {
-                        adjacentCount++;
-                    }
-                }
-                if (row < rowCount - 1 && column > 0) { //down left
-                    if (cells[row + 1][column - 1] == CellValue.ALIVE) {
-                        adjacentCount++;
-                    }
-                }
-                if (column > 0) { //left
-                    if (cells[row][column - 1] == CellValue.ALIVE) {
-                        adjacentCount++;
-                    }
-                }
+        int adjacentCount = 0;
+        //up left
+        if (row > 0 && column > 0 && cells[row - 1][column - 1] == CellValue.ALIVE) {
+            adjacentCount++;
+        }
+        //up
+        if (row > 0 && cells[row - 1][column] == CellValue.ALIVE) {
+            adjacentCount++;
+        }
+        //up right
+        if (column < columnCount - 1 && row > 0 && cells[row - 1][column + 1] == CellValue.ALIVE) {
+            adjacentCount++;
+        }
+        if (column < (columnCount - 1)) { //right
+            if (cells[row][column + 1] == CellValue.ALIVE) {
+                adjacentCount++;
             }
         }
+        if (column < columnCount - 1 && row < rowCount - 1) { //down right
+            if (cells[row + 1][column + 1] == CellValue.ALIVE) {
+                adjacentCount++;
+            }
+        }
+        if (row < rowCount - 1) { //down
+            if (cells[row + 1][column] == CellValue.ALIVE) {
+                adjacentCount++;
+            }
+        }
+        if (row < rowCount - 1 && column > 0) { //down left
+            if (cells[row + 1][column - 1] == CellValue.ALIVE) {
+                adjacentCount++;
+            }
+        }
+        if (column > 0) { //left
+            if (cells[row][column - 1] == CellValue.ALIVE) {
+                adjacentCount++;
+            }
+        }
+        return adjacentCount;
     }
 
 }

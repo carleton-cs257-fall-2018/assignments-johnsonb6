@@ -14,7 +14,7 @@ public class CellView extends Group {
 
     @FXML private int rowCount;
     @FXML private int columnCount;
-    private Rectangle[][] cellViews;
+    public Rectangle[][] cellViews;
 
     public CellView() {
     }
@@ -57,6 +57,13 @@ public class CellView extends Group {
         }
     }
 
+    public void setDeadColor(int row, int column) {
+        this.cellViews[row][column].setFill(Color.BLACK);
+    }
+    public void setAliveColor(int row, int column) {
+        this.cellViews[row][column].setFill(Color.YELLOW);
+    }
+
     /*
     public void nextGeneration(CellModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
@@ -83,11 +90,11 @@ public class CellView extends Group {
             for (int column = 0; column < this.columnCount; column++) {
                 CellModel.CellValue cellValue = model.getCellValue(row, column);
                 if (cellValue == CellModel.CellValue.DEAD) {
-                    if (model.cells[row][column].checkAdjacent() == 3) {
+                    if (model.checkAdjacent(row, column) == 3) {
                         model.setCellAlive(row, column, model.tempCells);
                     }
                 } else if (cellValue == CellModel.CellValue.ALIVE) {
-                    if (model.cells[row][column].checkAdjacent() > 3 || model.cells[row][column].checkAdjacent() < 2) {
+                    if (model.checkAdjacent(row, column) > 3 || model.checkAdjacent(row, column) < 2) {
                         model.setCellDead(row, column, model.tempCells);
                     }
                 }
