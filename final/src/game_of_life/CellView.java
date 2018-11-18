@@ -1,11 +1,11 @@
 package game_of_life;
+/*
+Created by Brennan Johnson and Silas Monahan, 2018
+part of MVC. CellView is what the user sees. It is updated by CellModel, which is updated by user input into Controller
+ */
 
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Group;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
@@ -57,35 +57,23 @@ public class CellView extends Group {
         }
     }
 
-    public void setDeadColor(int row, int column, Rectangle[][] recList) {
-        recList[row][column].setFill(Color.BLACK);
+    public void setDeadColor(int row, int column, Rectangle[][] rectangleList) {
+        rectangleList[row][column].setFill(Color.BLACK);
     }
-    public void setAliveColor(int row, int column, Rectangle[][] recList) {
-        recList[row][column].setFill(Color.YELLOW);
+    public void setAliveColor(int row, int column, Rectangle[][] rectangleList) {
+        rectangleList[row][column].setFill(Color.YELLOW);
     }
 
-    /*
+
+
     public void nextGeneration(CellModel model) {
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
-        for (int row = 0; row < this.rowCount; row++) {
-            for (int column = 0; column < this.columnCount; column++) {
-                CellModel.CellValue cellValue = model.getCellValue(row, column);
-                if (cellValue == CellModel.CellValue.DEAD) {
-                    this.cellViews[row][column].setFill(Color.BLACK);
-                    this.cellViews[row][column].setStroke(Color.WHITE);
-                } else if (cellValue == CellModel.CellValue.ALIVE) {
-                    this.cellViews[row][column].setFill(Color.WHITE);
-                }
-                //here is where we need to call the check adjacent method.
-                // I put it in cellModel but maybe it could go in this file instead
+        CellModel.CellValue[][] tempCells = new CellModel.CellValue[this.rowCount][this.columnCount];
+        for (int row = 0; row <this.rowCount; row++){
+            for (int col = 0; col <this.columnCount; col++){
+                tempCells[row][col] = model.cells[row][col];
             }
-
         }
-    }*/
-
-    public void nextGeneration(CellModel model) {
-        assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
-        CellModel.CellValue[][] tempCells = model.cells;
         for (int row = 0; row < this.rowCount; row++) {
             for (int column = 0; column < this.columnCount; column++) {
                 CellModel.CellValue cellValue = model.getCellValue(row, column, model.cells);
@@ -100,22 +88,7 @@ public class CellView extends Group {
                 }
             }
         }
-        CellModel.CellValue cell1 = tempCells[0][0];
-        CellModel.CellValue cell2 = tempCells[0][1];
-        CellModel.CellValue cell3 = tempCells[0][2];
-        CellModel.CellValue cell4 = tempCells[1][0];
-        CellModel.CellValue cell5 = tempCells[1][1];
-        CellModel.CellValue cell6 = tempCells[1][2];
 
-        CellModel.CellValue cell7 = model.cells[0][0];
-        CellModel.CellValue cell8 = model.cells[0][1];
-        CellModel.CellValue cell9 = model.cells[0][2];
-        CellModel.CellValue cell10 = model.cells[1][0];
-        CellModel.CellValue cell11 = model.cells[1][1];
-        CellModel.CellValue cell12 = model.cells[1][2];
-
-
-        int h = 20; // just using this to test, useless variable
         model.cells = tempCells;
         for (int row = 0; row < this.rowCount; row++) {
             for (int column = 0; column < this.columnCount; column++) {

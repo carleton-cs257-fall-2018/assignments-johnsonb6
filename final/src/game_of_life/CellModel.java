@@ -1,30 +1,27 @@
 package game_of_life;
 
+/*
+Created by Brennan Johnson and Silas Monahan, 2018
+part of MVC. CellModel is manipulated by Controller, and relays manipulations to CellView.
+ */
+
 
 public class CellModel {
     public enum CellValue {
         DEAD, ALIVE
-    };
+    }
 
-
-    // Note that runnerRow, runnerColumn, and dalekCount are all redundant with
-    // the contents of cells, so we have to be careful throughout to keep them
-    // coherent. We maintain this redundancy to avoid lags for large boards.
     public CellValue[][] cells;
-    //public CellValue[][] tempCells;
-    private int numberOfAliveCells;
-    private int numberOfGenerations;
+
 
 
     public CellModel(int rowCount, int columnCount) {
         assert rowCount > 0 && columnCount > 0;
         this.cells = new CellValue[rowCount][columnCount];
-        //this.tempCells = new CellValue[rowCount][columnCount];
         this.startSimulation();
     }
 
     public void startSimulation() {
-
         this.initializeSimulation();
     }
 

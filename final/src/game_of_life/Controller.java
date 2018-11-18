@@ -1,21 +1,22 @@
 package game_of_life;
-
+/*
+Created by Brennan Johnson and Silas Monahan, 2018
+part of MVC. User interacts with Controller, which manipulates CellModel, which relays changes to CellView.
+ */
 import javafx.fxml.FXML;
 import javafx.event.EventHandler;
-import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.paint.Color;
-
 import static game_of_life.CellModel.*;
 import static game_of_life.CellView.*;
+import java.util.Timer;
+import java.util.TimerTask;
 
 public class Controller implements EventHandler<KeyEvent> {
-    @FXML private Label scoreLabel;
-    @FXML private Label messageLabel;
     @FXML private CellView cellView;
     private CellModel cellModel;
+    private Timer timer;
 
     public Controller() {
     }
@@ -43,21 +44,39 @@ public class Controller implements EventHandler<KeyEvent> {
     private void nextGeneration() {
         this.cellView.nextGeneration(this.cellModel);
     }
+    private void startTimer() {
+        this.timer = new java.util.Timer();
+        TimerTask timerTask = new TimerTask() {
+            public void run() {
+                nextGeneration();
+            }
+        };
+
+        long frameTimeInMilliseconds = (long)(500.0);
+        this.timer.schedule(timerTask, 0, frameTimeInMilliseconds);
+    }
+    private void pauseTimer() {
+        this.timer.cancel();
+    }
 
     @Override
     public void handle(KeyEvent keyEvent) {
-        boolean keyRecognized = true;
         KeyCode code = keyEvent.getCode();
 
         String s = code.getChar();
-        if (s.length() > 0) {
-            char theCharacterWeWant = s.charAt(0);
-        }
         if (s.equals("N")) {
             this.nextGeneration();
         }
         if (s.equals("G")) {
+            this.pauseTimer();
             this.cellModel.startSimulation();
+            this.nextGeneration();
+        }
+        if (s.equals("R")) {
+            this.startTimer();
+        }
+        if (s.equals("P")) {
+            this.pauseTimer();
         }
     }
 
