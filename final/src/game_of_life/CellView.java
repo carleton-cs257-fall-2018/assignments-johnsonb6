@@ -9,10 +9,10 @@ import javafx.scene.Group;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+/**
+@author Brennan Johnson & Silas Monahan
+*/
 public class CellView extends Group {
-    /*
-    @author Brennan Johnson & Silas Monahan
-    */
     public final static double CELL_WIDTH = 20.0;
 
     @FXML private int rowCount;
@@ -23,45 +23,42 @@ public class CellView extends Group {
     }
 
 
-    public int getRowCount() {
-    /*
-    @param none
+    /**
     @return int row count of the grid
     */
+    public int getRowCount() {
         return this.rowCount;
     }
 
-    public void setRowCount(int rowCount) {
-    /*
-    @param integer representing num rows
+    /**
+    @param rowCount integer representing num rows
     @return none
      */
+    public void setRowCount(int rowCount) {
         this.rowCount = rowCount;
         this.initializeGrid();
     }
 
-    public int getColumnCount() {
-    /*
-    @param none
+    /**
     @return int column count of grid
      */
+    public int getColumnCount() {
     return this.columnCount;
     }
 
-    public void setColumnCount(int columnCount) {
-    /*
-    @param int representing num columns
+    /**
+    @param columnCount integer representing num columns
     @return none
      */
+    public void setColumnCount(int columnCount) {
     this.columnCount = columnCount;
     this.initializeGrid();
     }
 
-    private void initializeGrid() {
-    /*
-    @param none
-    @return none
+    /**
+     @return none
      */
+    private void initializeGrid() {
     if (this.rowCount > 0 && this.columnCount > 0) {
         this.cellViews = new Rectangle[this.rowCount][this.columnCount];
         for (int row = 0; row < this.rowCount; row++) {
@@ -81,28 +78,32 @@ public class CellView extends Group {
         }
     }
 
+    /**
+    @param row row of cell
+    @param column column of cell
+    @param rectangleList array of cells
+    @return none
+     */
     public void setDeadColor(int row, int column, Rectangle[][] rectangleList) {
-        /*
-        @param int row of cell, int column of cell, rectangle[][] array of cells
-        @return none
-         */
         rectangleList[row][column].setFill(Color.BLACK);
     }
+
+    /**
+     @param row row of cell
+     @param column column of cell
+     @param rectangleList array of cells
+     @return none
+     */
     public void setAliveColor(int row, int column, Rectangle[][] rectangleList) {
-        /*
-        @param int row of cell, int column of cell, rectangle[][] array of cells
-        @return none
-         */
         rectangleList[row][column].setFill(Color.YELLOW);
     }
 
 
-
+    /**
+    @param model CellModel that represents the structure of the game
+    @return none
+     */
     public void nextGeneration(CellModel model) {
-        /*
-        @param CellModel model that represents the structure of the game
-        @return none
-         */
         assert model.getRowCount() == this.rowCount && model.getColumnCount() == this.columnCount;
         CellModel.CellValue[][] tempCells = new CellModel.CellValue[this.rowCount][this.columnCount];
         for (int row = 0; row <this.rowCount; row++){

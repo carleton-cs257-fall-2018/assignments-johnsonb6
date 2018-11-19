@@ -5,11 +5,10 @@ Created by Brennan Johnson and Silas Monahan, 2018
 part of MVC. CellModel is manipulated by Controller, and relays manipulations to CellView.
  */
 
-
+/**
+@author Brennan Johnson & Silas Monahan
+ */
 public class CellModel {
-    /*
-    @author Brennan Johnson & Silas Monahan
-     */
     public enum CellValue {
         DEAD, ALIVE
     }
@@ -17,30 +16,28 @@ public class CellModel {
     public CellValue[][] cells;
 
 
-
+    /**
+    @param rowCount amount of rows
+    @param columnCount amount of columns
+    @return none
+    */
     public CellModel(int rowCount, int columnCount) {
-        /*
-        @param int num rows, int num columns
-        @return none
-         */
         assert rowCount > 0 && columnCount > 0;
         this.cells = new CellValue[rowCount][columnCount];
         this.startSimulation();
     }
 
+    /**
+    @return none
+    */
     public void startSimulation() {
-        /*
-        @param none
-        @return none
-         */
         this.initializeSimulation();
     }
 
+    /**
+    @return none
+     */
     private void initializeSimulation() {
-        /*
-        @param none
-        @return none
-         */
         int rowCount = this.cells.length;
         int columnCount = this.cells[0].length;
 
@@ -53,57 +50,60 @@ public class CellModel {
 
     }
 
+    /**
+    @param row row of cell
+    @param column column of cell
+    @param list array of cells
+    @return CellValue value of cell at row, column that was passed in through params
+    */
     public CellValue getCellValue(int row, int column, CellValue[][] list) {
-        /*
-        @param int row, int column, CellValue[][] list of cells to be searched through
-        @return CellValue value of cell at row, column that was passed in through params
-         */
         assert row >= 0 && row < list.length && column >= 0 && column < list[0].length;
         return list[row][column];
     }
 
-
+    /**
+    @return int number of rows in grid
+     */
     public int getRowCount() {
-        /*
-        @param none
-        @return int number of rows in grid
-         */
         return this.cells.length;
     }
 
+    /**
+    @return int number of columns in grid
+     */
     public int getColumnCount() {
-        /*
-        @param none
-        @return int number of columns in grid
-         */
         assert this.cells.length > 0;
         return this.cells[0].length;
     }
 
-
+    /**
+    @param row row of cell
+    @param column column of cell
+    @param list array of cells
+    @return none
+    */
     public void setCellDead(int row, int column, CellValue[][] list) {
-        /*
-        @param int row, int column, CellValue[][] list
-        @return none
-         */
         list[row][column] = CellValue.DEAD;
     }
 
+    /**
+    @param row row of cell
+    @param column column of cell
+    @param list array of cells
+    @return none
+    */
     public void setCellAlive(int row, int column, CellValue[][] list) {
-        /*
-        @param int row, int column, CellValue[][] list
-        @return none
-         */
         list[row][column] = CellValue.ALIVE;
     }
 
+    /**
+    @param row row of cell
+    @param column column of cell
+    @param list array of cells
+    @return int that represents num of adjacent cells that are alive
+    checks the status of the adjacent cells
+     */
     public int checkAdjacent(int row, int column, CellValue[][] list) {
-        /*
-        @param int row, int column, CellValue[][] list
-        @return int that represents num of adjacent cells that are alive
-        checks the status of the adjacent cells
-         */
-
         int rowCount = list.length;
         int columnCount = list[0].length;
 
